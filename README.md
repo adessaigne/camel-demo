@@ -1,4 +1,4 @@
-came-demo
+camel-demo
 =========
 
 camel-demo
