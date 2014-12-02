@@ -34,7 +34,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
  * http://camel.apache.org/logeip.html
  * http://camel.apache.org/simple.html
  */
-public final class Excercise01 {
+public final class Solution01 {
     public static void main(String... args) throws Exception {
         // Create a simulator
         final Path directory = createTempDirectory("Excercise01-");
