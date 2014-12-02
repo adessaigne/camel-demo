@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.adessaigne.cameldemo.basic.simulator;
+package io.github.adessaigne.cameldemo.basic.common;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,7 +36,7 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import static java.util.concurrent.Executors.newSingleThreadExecutor;
 import static org.slf4j.LoggerFactory.getLogger;
 
-public final class Simulator {
+final class Simulator {
     private static final Logger LOG = getLogger(Simulator.class);
     private static final String[] FILES = {"007-SC.xml", "007-GL.xml", "007-RM.xml", "007-TD.xml", "007-PB.xml", "007-DC.xml"};
 
@@ -59,12 +59,19 @@ public final class Simulator {
      * Generates the simulated files.
      *
      * @param delay Delay between 2 file generation
-     * @param unit  Time unit of the delay between 2 file generation
+     * @param unit Time unit of the delay between 2 file generation
      */
     public Future<Void> generate(long delay, TimeUnit unit) {
         checkNotNull(unit, "The time unit must be defined");
 
         return executorService.submit(new SimulationTask(directory, delay, unit));
+    }
+
+    /**
+     * Stops the simulator.
+     */
+    public void stop() {
+        executorService.shutdownNow();
     }
 
     private static void checkPath(Path directory) {

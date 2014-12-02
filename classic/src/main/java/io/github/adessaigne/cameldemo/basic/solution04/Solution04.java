@@ -16,7 +16,6 @@
  */
 package io.github.adessaigne.cameldemo.basic.solution04;
 
-import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -24,32 +23,27 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.dataformat.csv.CsvDataFormat;
-import org.apache.camel.impl.DefaultCamelContext;
 
-import io.github.adessaigne.cameldemo.basic.simulator.Simulator;
+import io.github.adessaigne.cameldemo.basic.common.AbstractExcercise;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
-
-import static java.nio.file.Files.createTempDirectory;
-import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
  * Your mission: create a CSV file with all the james bond movies with their actor
  *
  * @link http://camel.apache.org/processor.html
  */
-public final class Solution04 {
-    public static void main(String... args) throws Exception {
-        // Create a simulator
-        final Path directory = createTempDirectory("Excercise01-");
-        final Simulator simulator = new Simulator(directory);
+final class Solution04 extends AbstractExcercise {
+    public static void main(String... args) {
+        new Solution04().run();
+    }
 
-        // Configure Camel
-        final DefaultCamelContext context = new DefaultCamelContext();
-        context.addRoutes(new RouteBuilder() {
+    @Override
+    protected RouteBuilder configureCamelRoutes() {
+        return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("file:" + directory)
+                from("file:" + getWorkingDirectory())
                         .convertBodyTo(Document.class)
                         .setHeader("Actor", xpath("/bond/actor/name/text()"))
                         .split(xpath("/bond/movies/movie"))
@@ -66,10 +60,6 @@ public final class Solution04 {
                         .marshal(new CsvDataFormat())
                         .to("file:?fileName=007.csv&fileExist=Append");
             }
-        });
-
-        // Start simulation and Camel
-        simulator.generate(2, SECONDS);
-        context.start();
+        };
     }
 }

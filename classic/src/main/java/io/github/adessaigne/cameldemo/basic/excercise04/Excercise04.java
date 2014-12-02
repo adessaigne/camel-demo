@@ -16,39 +16,28 @@
  */
 package io.github.adessaigne.cameldemo.basic.excercise04;
 
-import java.nio.file.Path;
-
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.impl.DefaultCamelContext;
 
-import io.github.adessaigne.cameldemo.basic.simulator.Simulator;
-
-import static java.nio.file.Files.createTempDirectory;
-import static java.util.concurrent.TimeUnit.SECONDS;
+import io.github.adessaigne.cameldemo.basic.common.AbstractExcercise;
 
 /**
  * Your mission: create a CSV file with all the james bond movies with their actor
  *
  * @link http://camel.apache.org/processor.html
  */
-public final class Excercise04 {
-    public static void main(String... args) throws Exception {
-        // Create a simulator
-        final Path directory = createTempDirectory("Excercise01-");
-        final Simulator simulator = new Simulator(directory);
+final class Excercise04 extends AbstractExcercise {
+    public static void main(String... args) {
+        new Excercise04().run();
+    }
 
-        // Configure Camel
-        final DefaultCamelContext context = new DefaultCamelContext();
-        context.addRoutes(new RouteBuilder() {
+    @Override
+    protected RouteBuilder configureCamelRoutes() {
+        return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 //TODO: write your route here
                 // Use a processor in order to convert the body into the expected format for CSV
             }
-        });
-
-        // Start simulation and Camel
-        simulator.generate(2, SECONDS);
-        context.start();
+        };
     }
 }

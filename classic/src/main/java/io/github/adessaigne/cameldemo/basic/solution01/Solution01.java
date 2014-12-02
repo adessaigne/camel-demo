@@ -16,15 +16,9 @@
  */
 package io.github.adessaigne.cameldemo.basic.solution01;
 
-import java.nio.file.Path;
-
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.impl.DefaultCamelContext;
 
-import io.github.adessaigne.cameldemo.basic.simulator.Simulator;
-
-import static java.nio.file.Files.createTempDirectory;
-import static java.util.concurrent.TimeUnit.SECONDS;
+import io.github.adessaigne.cameldemo.basic.common.AbstractExcercise;
 
 /**
  * Your mission: print the processed file name into the log.
@@ -34,24 +28,19 @@ import static java.util.concurrent.TimeUnit.SECONDS;
  * http://camel.apache.org/logeip.html
  * http://camel.apache.org/simple.html
  */
-public final class Solution01 {
-    public static void main(String... args) throws Exception {
-        // Create a simulator
-        final Path directory = createTempDirectory("Excercise01-");
-        final Simulator simulator = new Simulator(directory);
+final class Solution01 extends AbstractExcercise {
+    public static void main(String... args) {
+        new Solution01().run();
+    }
 
-        // Configure Camel
-        final DefaultCamelContext context = new DefaultCamelContext();
-        context.addRoutes(new RouteBuilder() {
+    @Override
+    protected RouteBuilder configureCamelRoutes() {
+        return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("file:" + directory)
+                from("file:" + getWorkingDirectory())
                         .log("Processing ${header.CamelFileNameOnly}.");
             }
-        });
-
-        // Start simulation and Camel
-        simulator.generate(2, SECONDS);
-        context.start();
+        };
     }
 }

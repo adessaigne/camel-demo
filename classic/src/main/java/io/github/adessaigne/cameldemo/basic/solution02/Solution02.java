@@ -16,40 +16,29 @@
  */
 package io.github.adessaigne.cameldemo.basic.solution02;
 
-import java.nio.file.Path;
-
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.impl.DefaultCamelContext;
 
-import io.github.adessaigne.cameldemo.basic.simulator.Simulator;
+import io.github.adessaigne.cameldemo.basic.common.AbstractExcercise;
 import org.w3c.dom.Document;
-
-import static java.nio.file.Files.createTempDirectory;
-import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
  * Your mission: print the name of each James Bond actor
  */
-public final class Solution02 {
-    public static void main(String... args) throws Exception {
-        // Create a simulator
-        final Path directory = createTempDirectory("Excercise01-");
-        final Simulator simulator = new Simulator(directory);
+final class Solution02 extends AbstractExcercise {
+    public static void main(String... args) {
+        new Solution02().run();
+    }
 
-        // Configure Camel
-        final DefaultCamelContext context = new DefaultCamelContext();
-        context.addRoutes(new RouteBuilder() {
+    @Override
+    protected RouteBuilder configureCamelRoutes() {
+        return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("file:" + directory)
+                from("file:" + getWorkingDirectory())
                         .convertBodyTo(Document.class)
                         .setHeader("Actor", xpath("/bond/actor/name/text()"))
                         .log("James Bond is ${header.Actor}.");
             }
-        });
-
-        // Start simulation and Camel
-        simulator.generate(2, SECONDS);
-        context.start();
+        };
     }
 }

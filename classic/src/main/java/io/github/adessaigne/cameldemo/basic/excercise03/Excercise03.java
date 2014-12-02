@@ -16,38 +16,27 @@
  */
 package io.github.adessaigne.cameldemo.basic.excercise03;
 
-import java.nio.file.Path;
-
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.impl.DefaultCamelContext;
 
-import io.github.adessaigne.cameldemo.basic.simulator.Simulator;
-
-import static java.nio.file.Files.createTempDirectory;
-import static java.util.concurrent.TimeUnit.SECONDS;
+import io.github.adessaigne.cameldemo.basic.common.AbstractExcercise;
 
 /**
  * Your mission: print the title of each james bond movie along with its actor
  *
  * @link http://camel.apache.org/enterprise-integration-patterns.html
  */
-public final class Excercise03 {
-    public static void main(String... args) throws Exception {
-        // Create a simulator
-        final Path directory = createTempDirectory("Excercise01-");
-        final Simulator simulator = new Simulator(directory);
+final class Excercise03 extends AbstractExcercise {
+    public static void main(String... args) {
+        new Excercise03().run();
+    }
 
-        // Configure Camel
-        final DefaultCamelContext context = new DefaultCamelContext();
-        context.addRoutes(new RouteBuilder() {
+    @Override
+    protected RouteBuilder configureCamelRoutes() {
+        return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 //TODO: write your route here
             }
-        });
-
-        // Start simulation and Camel
-        simulator.generate(2, SECONDS);
-        context.start();
+        };
     }
 }
