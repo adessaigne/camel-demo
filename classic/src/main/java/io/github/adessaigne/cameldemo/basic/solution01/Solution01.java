@@ -21,7 +21,7 @@ import org.apache.camel.builder.RouteBuilder;
 import io.github.adessaigne.cameldemo.basic.common.AbstractExcercise;
 
 /**
- * Your mission: display the name of the file that has been created into the working directory.
+ * Your mission: log the name of the file that has been created into the working directory.
  * <p/>
  * Every 2 seconds, one new file is created into the working directory (that can be accessed using the
  * {@link #getWorkingDirectory()} method).

@@ -21,7 +21,10 @@ import org.apache.camel.builder.RouteBuilder;
 import io.github.adessaigne.cameldemo.basic.common.AbstractExcercise;
 
 /**
- * Your mission: read the file XML content and print the name of each James Bond actor
+ * Your mission: read the file XML content and log the name of each James Bond actor.
+ * <p/>
+ * Like for the first exercise, the files are automatically copied into the working directory. You can see their content
+ * in the {@code resources} folder under the {@code io.github.adessaigne.cameldemo.basic.common} package.
  */
 final class Excercise02 extends AbstractExcercise {
     public static void main(String... args) {
