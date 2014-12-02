@@ -16,6 +16,8 @@
  */
 package io.github.adessaigne.cameldemo.basic.excercise01;
 
+import java.nio.file.Path;
+
 import org.apache.camel.builder.RouteBuilder;
 
 import io.github.adessaigne.cameldemo.basic.common.AbstractExcercise;
@@ -38,8 +40,9 @@ final class Excercise01 extends AbstractExcercise {
         return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
+                Path workingDirectory = getWorkingDirectory();
+
                 //TODO Replace "xxxx" by something useful
-                // There is a getWorkingDirectory() method in order to retrieve the working directory
                 from("xxxx")
                         .log("Processing xxxx.");
             }
