@@ -23,6 +23,12 @@ import io.github.adessaigne.cameldemo.basic.common.AbstractExcercise;
 /**
  * Your mission: print the processed file name into the log.
  * <p/>
+ * There is a file simulator that copies all the resources of the {@code io.github.adessaigne.cameldemo.basic.common}
+ * package into the working directory. It waits two second between files.
+ * <p/>
+ * The working directory can be accessed through the {@link #getWorkingDirectory()} method. By default it creates a new
+ * temporary folder at each call.
+ * <p/>
  * Useful links:
  * http://camel.apache.org/file2.html
  * http://camel.apache.org/logeip.html

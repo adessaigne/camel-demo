@@ -19,6 +19,7 @@ package io.github.adessaigne.cameldemo.basic.common;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Path;
 
 import org.apache.camel.impl.DefaultCamelContext;
 
@@ -30,21 +31,27 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 final class CommandLineReader implements Runnable {
     private final Simulator simulator;
     private final DefaultCamelContext context;
+    private final Path workingDirectory;
 
     /**
      * Creates a new instance.
      *
      * @param simulator Simulator for the exercise
      * @param context Camel context of the excercise
+     * @param workingDirectory The working directory
      */
-    public CommandLineReader(Simulator simulator, DefaultCamelContext context) {
+    public CommandLineReader(Simulator simulator, DefaultCamelContext context, Path workingDirectory) {
         this.simulator = simulator;
         this.context = context;
+        this.workingDirectory = workingDirectory;
     }
 
     @Override
     public void run() {
-        System.out.println("Welcome to the excercise. Type 'exit' in order to stop the execution");
+        System.out.println("Welcome to the excercise.");
+        System.out.println("The working directory is " + workingDirectory);
+        System.out.println("Type 'exit' in order to stop the platform.");
+        System.out.println();
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             while (true) {

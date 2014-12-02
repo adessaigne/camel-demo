@@ -44,9 +44,9 @@ public abstract class AbstractExcercise implements Runnable {
         final DefaultCamelContext context = new DefaultCamelContext();
 
         // Start the console
-        new Thread(new CommandLineReader(simulator, context), "console").start();
+        new Thread(new CommandLineReader(simulator, context, getWorkingDirectory()), "console").start();
 
-        // Create and configure the Camel context
+        // Configure the Camel context
         try {
             context.addRoutes(configureCamelRoutes());
         } catch (Exception e) {
@@ -55,7 +55,7 @@ public abstract class AbstractExcercise implements Runnable {
         }
 
         // Start the simulator and Camel
-        simulator.generate(1, SECONDS);
+        simulator.generate(2, SECONDS);
         try {
             context.start();
         } catch (Exception e) {
