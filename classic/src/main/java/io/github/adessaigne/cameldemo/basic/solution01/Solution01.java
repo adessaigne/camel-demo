@@ -21,13 +21,17 @@ import org.apache.camel.builder.RouteBuilder;
 import io.github.adessaigne.cameldemo.basic.common.AbstractExcercise;
 
 /**
- * Your mission: print the processed file name into the log.
+ * Your mission: display the name of the file that has been created into the working directory.
  * <p/>
- * There is a file simulator that copies all the resources of the {@code io.github.adessaigne.cameldemo.basic.common}
- * package into the working directory. It waits two second between files.
+ * Every 2 seconds, one new file is created into the working directory (that can be accessed using the
+ * {@link #getWorkingDirectory()} method).
  * <p/>
- * The working directory can be accessed through the {@link #getWorkingDirectory()} method. By default it creates a new
- * temporary folder at each call.
+ * All you need to do is to complete the Camel route definition in the {@link #configureCamelRoutes()} method.
+ * <p/>
+ * The Camel documentation mostly uses the following format:
+ * - A basic introduction,
+ * - The list of all options available for this component,
+ * - Sample code usages
  * <p/>
  * Useful links:
  * http://camel.apache.org/file2.html
