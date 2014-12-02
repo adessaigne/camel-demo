@@ -37,6 +37,7 @@ final class Excercise02 extends AbstractExcercise {
             @Override
             public void configure() throws Exception {
                 //TODO: write your route here
+                // You can use a header in order to extract the actor name from the XML file
             }
         };
     }
