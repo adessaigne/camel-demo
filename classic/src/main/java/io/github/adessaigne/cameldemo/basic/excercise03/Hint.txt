@@ -133,5 +133,4 @@ Really sure ? Then, keep scrolling :)
  |
  V
 
-Convert the body as an XML document in order to process it with XPath.
-The XPath expression to use is "/bond/actor/name/text()".
+You need to split by movie using the following XPath expression "/bond/movies/movie".
