@@ -21,28 +21,21 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Path;
 
-import org.apache.camel.impl.DefaultCamelContext;
-
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
-
 /**
  * This class is a really simple class that handles basic exercise commands from the command line.
  */
 final class CommandLineReader implements Runnable {
-    private final Simulator simulator;
-    private final DefaultCamelContext context;
+    private final ShutdownHandler shutdownHandler;
     private final Path workingDirectory;
 
     /**
      * Creates a new instance.
      *
-     * @param simulator Simulator for the exercise
-     * @param context Camel context of the excercise
+     * @param shutdownHandler Shutdown handler
      * @param workingDirectory The working directory
      */
-    public CommandLineReader(Simulator simulator, DefaultCamelContext context, Path workingDirectory) {
-        this.simulator = simulator;
-        this.context = context;
+    public CommandLineReader(ShutdownHandler shutdownHandler, Path workingDirectory) {
+        this.shutdownHandler = shutdownHandler;
         this.workingDirectory = workingDirectory;
     }
 
@@ -93,22 +86,8 @@ final class CommandLineReader implements Runnable {
         System.out.println("exit");
     }
 
-    private void doStop() {
+    public void doStop() {
         System.out.println("Stopping now !");
-
-        // Stopping simulator
-        simulator.stop();
-
-        // Stopping camel
-        context.getShutdownStrategy().setTimeout(1);
-        context.getShutdownStrategy().setTimeUnit(MILLISECONDS);
-        try {
-            context.stop();
-        } catch (Exception e) {
-            System.err.println("Cannot stop the context");
-            e.printStackTrace(System.err);
-        }
-
-        System.exit(0);
+        shutdownHandler.shutdown();
     }
 }

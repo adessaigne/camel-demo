@@ -18,6 +18,8 @@ package io.github.adessaigne.cameldemo.basic.common;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -26,6 +28,7 @@ import org.slf4j.Logger;
 
 import static java.lang.System.exit;
 import static java.nio.file.Files.createTempDirectory;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -42,9 +45,10 @@ public abstract class AbstractExcercise implements Runnable {
     public final void run() {
         final Simulator simulator = new Simulator(getWorkingDirectory());
         final DefaultCamelContext context = new DefaultCamelContext();
+        final ShutdownHandler shutdownHandler = new ExerciseShutdownHandler(log, simulator, context);
 
         // Start the console
-        new Thread(new CommandLineReader(simulator, context, getWorkingDirectory()), "console").start();
+        new Thread(new CommandLineReader(shutdownHandler, getWorkingDirectory()), "console").start();
 
         // Configure the Camel context
         try {
@@ -55,12 +59,27 @@ public abstract class AbstractExcercise implements Runnable {
         }
 
         // Start the simulator and Camel
-        simulator.generate(2, SECONDS);
+        Future<Void> simulation = simulator.generate(2, SECONDS);
         try {
             context.start();
         } catch (Exception e) {
             log.error("Cannot start the Camel context.", e);
             exit(-1);
+        }
+
+        // Automatically stop the platform once the simulation is complete
+        try {
+            // Wait for simulation to complete
+            simulation.get();
+            // Wait 5 seconds before automatic shutdown
+            SECONDS.sleep(5);
+            log.info("Simulation complete, stopping the platform.");
+            shutdownHandler.shutdown();
+        } catch (InterruptedException e) {
+            // Propagate interruption
+            Thread.currentThread().interrupt();
+        } catch (ExecutionException e) {
+            log.error("Something went wrong during the simulation.", e.getCause());
         }
     }
 
@@ -91,5 +110,34 @@ public abstract class AbstractExcercise implements Runnable {
             }
         }
         return workingDirectory;
+    }
+
+    private static final class ExerciseShutdownHandler implements ShutdownHandler {
+        private final Logger log;
+        private final Simulator simulator;
+        private final DefaultCamelContext context;
+
+        public ExerciseShutdownHandler(Logger log, Simulator simulator, DefaultCamelContext context) {
+            this.log = log;
+            this.simulator = simulator;
+            this.context = context;
+        }
+
+        @Override
+        public void shutdown() {
+            // Stopping simulator
+            simulator.stop();
+
+            // Stopping camel
+            context.getShutdownStrategy().setTimeout(1);
+            context.getShutdownStrategy().setTimeUnit(MILLISECONDS);
+            try {
+                context.stop();
+            } catch (Exception e) {
+                log.error("Cannot stop the context.", e);
+            }
+
+            System.exit(0);
+        }
     }
 }
