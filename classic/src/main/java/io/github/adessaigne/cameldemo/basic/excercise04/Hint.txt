@@ -134,5 +134,5 @@ Really sure ? Then, keep scrolling :)
  V
 
 The processor will create the Map for  the CSV marshalling
-You can use ((NodeList) exchange.getIn().getHeader("Movie")).item(0).getTextContent() in order to convert a header value into a String.
+You can use exchange.getIn().getHeader("Movie", String.class) in order to convert a header value into a String.
 Use the fileExist=Append option to file in order to append new lines to the CSV file.

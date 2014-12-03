@@ -32,11 +32,10 @@ import io.github.adessaigne.cameldemo.basic.common.AbstractExcercise;
  * - A basic introduction,
  * - The list of all options available for this component,
  * - Sample code usages
- * <p/>
- * Useful links:
- * http://camel.apache.org/file2.html
- * http://camel.apache.org/logeip.html
- * http://camel.apache.org/simple.html
+ *
+ * @link http://camel.apache.org/file2.html
+ * @link http://camel.apache.org/logeip.html
+ * @link http://camel.apache.org/simple.html
  */
 final class Solution01 extends AbstractExcercise {
     public static void main(String... args) {
