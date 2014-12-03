@@ -28,6 +28,11 @@
 
     <artifactId>classic</artifactId>
 
+    <properties>
+        <derby.version>10.10.2.0</derby.version>
+        <h2.version>1.4.182</h2.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -38,6 +43,21 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-csv</artifactId>
             <version>${camel.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-sql</artifactId>
+            <version>${camel.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jdbc</artifactId>
+            <version>${camel.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
         </dependency>
     </dependencies>
 </project>

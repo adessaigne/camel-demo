@@ -44,9 +44,9 @@ final class Solution04 extends AbstractExcercise {
             public void configure() throws Exception {
                 from("file:" + getWorkingDirectory())
                         .convertBodyTo(Document.class)
-                        .setHeader("Actor", xpath("/bond/actor/name/text()"))
+                        .setHeader("Actor", xpath("/bond/actor/name/text()", String.class))
                         .split(xpath("/bond/movies/movie"))
-                        .setHeader("Movie", xpath("movie/title/text()"))
+                        .setHeader("Movie", xpath("movie/title/text()", String.class))
                         .process(new Processor() {
                             @Override
                             public void process(Exchange exchange) throws Exception {

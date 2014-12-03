@@ -14,22 +14,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.adessaigne.cameldemo.basic.solution02;
+package io.github.adessaigne.cameldemo.basic.excercise06;
+
+import java.util.concurrent.ConcurrentMap;
 
 import org.apache.camel.builder.RouteBuilder;
 
 import io.github.adessaigne.cameldemo.basic.common.AbstractExcercise;
-import org.w3c.dom.Document;
+import io.github.adessaigne.cameldemo.basic.common.WithDatabase;
 
 /**
- * Your mission: read the file XML content and log the name of each James Bond actor.
+ * Your mission: insert the data into a database.
  * <p/>
- * Like for the first exercise, the files are automatically copied into the working directory. You can see their content
- * in the {@code resources} folder under the {@code io.github.adessaigne.cameldemo.basic.common} package.
+ * The database {@link javax.sql.DataSource} can be accessed with the {@link #getDatabase()} method.
+ * <p/>
+ * The content of the database is automatically displayed at the end of the excercise, there's an error if it's empty.
+ * <p/>
+ * Here is the database schema:<pre>
+ * CREATE TABLE JAMES_BOND (
+ *   YEAR INT NOT NULL,
+ *   ACTOR VARCHAR NOT NULL,
+ *   MOVIE VARCHAR  NOT NULL,
+ *   PRIMARY KEY (YEAR)
+ * )
+ * </pre>
  */
-final class Solution02 extends AbstractExcercise {
+@WithDatabase
+final class Excercise06 extends AbstractExcercise {
     public static void main(String... args) {
-        new Solution02().run();
+        new Excercise06().run();
+    }
+
+    @Override
+    protected void configureRegistry(ConcurrentMap<String, Object> registry) {
+        //TODO: configure your registry here
     }
 
     @Override
@@ -37,10 +55,7 @@ final class Solution02 extends AbstractExcercise {
         return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("file:" + getWorkingDirectory())
-                        .convertBodyTo(Document.class)
-                        .setHeader("Actor", xpath("/bond/actor/name/text()", String.class))
-                        .log("James Bond is ${header.Actor}.");
+                //TODO: write your route here
             }
         };
     }

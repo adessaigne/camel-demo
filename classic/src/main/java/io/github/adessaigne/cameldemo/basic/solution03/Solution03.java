@@ -38,9 +38,9 @@ final class Solution03 extends AbstractExcercise {
             public void configure() throws Exception {
                 from("file:" + getWorkingDirectory())
                         .convertBodyTo(Document.class)
-                        .setHeader("Actor", xpath("/bond/actor/name/text()"))
+                        .setHeader("Actor", xpath("/bond/actor/name/text()", String.class))
                         .split(xpath("/bond/movies/movie"))
-                        .setHeader("Movie", xpath("movie/title/text()"))
+                        .setHeader("Movie", xpath("movie/title/text()", String.class))
                         .log("${header.Actor} is James Bond in ${header.Movie}.");
             }
         };
