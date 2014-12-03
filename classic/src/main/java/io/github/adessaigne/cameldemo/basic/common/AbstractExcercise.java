@@ -18,6 +18,8 @@ package io.github.adessaigne.cameldemo.basic.common;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -47,11 +49,13 @@ public abstract class AbstractExcercise implements Runnable {
         log.info("You working directory is " + getWorkingDirectory());
 
         final Simulator simulator = new Simulator(getWorkingDirectory());
-        final DefaultCamelContext context = new DefaultCamelContext();
+        final ConcurrentMap<String, Object> registry = new ConcurrentHashMap<>();
+        final DefaultCamelContext context = new DefaultCamelContext(new MapBasedRegistry(registry));
         final ShutdownHandler shutdownHandler = new ExerciseShutdownHandler(log, simulator, context);
 
         // Configure the Camel context
         try {
+            configureRegistry(registry);
             context.addRoutes(configureCamelRoutes());
         } catch (Exception e) {
             log.error("Cannot configure the Camel routes.", e);
@@ -81,6 +85,10 @@ public abstract class AbstractExcercise implements Runnable {
         } catch (ExecutionException e) {
             log.error("Something went wrong during the simulation.", e.getCause());
         }
+    }
+
+    protected void configureRegistry(ConcurrentMap<String, Object> registry) {
+        // No-op, must be override
     }
 
     /**
