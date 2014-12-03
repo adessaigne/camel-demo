@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.adessaigne.cameldemo.basic.solution06;
+package io.github.adessaigne.cameldemo.basic.excercise07;
 
 import java.util.concurrent.ConcurrentMap;
 
@@ -22,33 +22,23 @@ import org.apache.camel.builder.RouteBuilder;
 
 import io.github.adessaigne.cameldemo.basic.common.AbstractExcercise;
 import io.github.adessaigne.cameldemo.basic.common.WithDatabase;
-import org.w3c.dom.Document;
+import io.github.adessaigne.cameldemo.basic.common.WithWebService;
 
 /**
- * Your mission: insert the data into a database.
+ * Your mission: provide a REST web service for accessing James Bond movie titles
  * <p/>
- * The database {@link javax.sql.DataSource} can be accessed with the {@link #getDatabase()} method.
- * <p/>
- * The content of the database is automatically displayed at the end of the excercise.
- * <p/>
- * Here is the database schema:<pre>
- * CREATE TABLE JAMES_BOND (
- *   YEAR INT NOT NULL,
- *   ACTOR VARCHAR NOT NULL,
- *   MOVIE VARCHAR  NOT NULL,
- *   PRIMARY KEY (YEAR)
- * )
- * </pre>
+ * The REST request will be "/bond/{year}/title" and is automatically executed at the end of the test.
  */
 @WithDatabase
-final class Solution06 extends AbstractExcercise {
+@WithWebService(port = 1234)
+final class Exercise07 extends AbstractExcercise {
     public static void main(String... args) {
-        new Solution06().run();
+        new Exercise07().run();
     }
 
     @Override
     protected void configureRegistry(ConcurrentMap<String, Object> registry) {
-        registry.put("db", getDatabase());
+        //TODO: maybe there's something to configure here
     }
 
     @Override
@@ -56,13 +46,8 @@ final class Solution06 extends AbstractExcercise {
         return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("file:" + getWorkingDirectory())
-                        .convertBodyTo(Document.class)
-                        .setHeader("Actor", xpath("/bond/actor/name/text()", String.class))
-                        .split(xpath("/bond/movies/movie"))
-                        .setHeader("Year", xpath("movie/@year", Integer.class))
-                        .setHeader("Movie", xpath("movie/title/text()", String.class))
-                        .to("sql:insert into JAMES_BOND (YEAR, ACTOR, MOVIE) VALUES (:#${header.Year}, :#${header.Actor}, :#${header.Movie})?dataSource=#db");
+                //TODO: write your route here.
+                // Yes, you can write a REST web service in Camel :)
             }
         };
     }

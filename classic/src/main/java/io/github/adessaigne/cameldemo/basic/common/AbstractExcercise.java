@@ -34,6 +34,7 @@ import org.apache.camel.impl.DefaultCamelContext;
 import com.google.common.io.Resources;
 import com.sun.istack.Nullable;
 import org.h2.jdbcx.JdbcConnectionPool;
+import org.restlet.resource.ClientResource;
 import org.slf4j.Logger;
 
 import static java.lang.String.format;
@@ -63,7 +64,7 @@ public abstract class AbstractExcercise implements Runnable {
         final Simulator simulator = new Simulator(getWorkingDirectory());
         final ConcurrentMap<String, Object> registry = new ConcurrentHashMap<>();
         final DefaultCamelContext context = new DefaultCamelContext(new MapBasedRegistry(registry));
-        final ShutdownHandler shutdownHandler = new ExerciseShutdownHandler(log, simulator, context, getDatabase());
+        final ShutdownHandler shutdownHandler = new ExerciseShutdownHandler(log, simulator, context);
 
         configureCamel(context, registry);
 
@@ -75,6 +76,10 @@ public abstract class AbstractExcercise implements Runnable {
 
         if (isDatabaseUsed()) {
             displayDatabaseContent();
+        }
+
+        if (isWebServiceUsed()) {
+            callWebService();
         }
 
         log.info("Excercise complete, stopping the platform.");
@@ -263,12 +268,27 @@ public abstract class AbstractExcercise implements Runnable {
         return db;
     }
 
+    private boolean isWebServiceUsed() {
+        return getClass().getAnnotation(WithWebService.class) != null;
+    }
+
+    private void callWebService() {
+        try {
+            int port = getClass().getAnnotation(WithWebService.class).port();
+            String uri = "http://localhost:" + port + "/bond/1965/title";
+            String text = new ClientResource(uri).get().getText();
+            log.info("Web service result: " + text);
+        } catch (IOException e) {
+            handleFatalError("Cannot call the web service", e);
+        }
+    }
+
     private static final class ExerciseShutdownHandler implements ShutdownHandler {
         private final Logger log;
         private final Simulator simulator;
         private final DefaultCamelContext context;
 
-        public ExerciseShutdownHandler(Logger log, Simulator simulator, DefaultCamelContext context, DataSource database) {
+        public ExerciseShutdownHandler(Logger log, Simulator simulator, DefaultCamelContext context) {
             this.log = log;
             this.simulator = simulator;
             this.context = context;
@@ -288,7 +308,7 @@ public abstract class AbstractExcercise implements Runnable {
                 log.error("Cannot stop the context.", e);
             }
 
-            System.exit(0);
+            exit(0);
         }
     }
 }

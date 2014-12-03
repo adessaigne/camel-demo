@@ -14,36 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.adessaigne.cameldemo.basic.solution06;
+package io.github.adessaigne.cameldemo.basic.solution07;
 
 import java.util.concurrent.ConcurrentMap;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.model.rest.RestBindingMode;
 
 import io.github.adessaigne.cameldemo.basic.common.AbstractExcercise;
 import io.github.adessaigne.cameldemo.basic.common.WithDatabase;
+import io.github.adessaigne.cameldemo.basic.common.WithWebService;
 import org.w3c.dom.Document;
 
 /**
- * Your mission: insert the data into a database.
+ * Your mission: provide a REST web service for accessing James Bond movie titles
  * <p/>
- * The database {@link javax.sql.DataSource} can be accessed with the {@link #getDatabase()} method.
- * <p/>
- * The content of the database is automatically displayed at the end of the excercise.
- * <p/>
- * Here is the database schema:<pre>
- * CREATE TABLE JAMES_BOND (
- *   YEAR INT NOT NULL,
- *   ACTOR VARCHAR NOT NULL,
- *   MOVIE VARCHAR  NOT NULL,
- *   PRIMARY KEY (YEAR)
- * )
- * </pre>
+ * The REST request will be "/bond/{year}/title" and is automatically executed at the end of the test.
  */
 @WithDatabase
-final class Solution06 extends AbstractExcercise {
+@WithWebService(port = 1234)
+final class Solution07 extends AbstractExcercise {
     public static void main(String... args) {
-        new Solution06().run();
+        new Solution07().run();
     }
 
     @Override
@@ -63,6 +55,16 @@ final class Solution06 extends AbstractExcercise {
                         .setHeader("Year", xpath("movie/@year", Integer.class))
                         .setHeader("Movie", xpath("movie/title/text()", String.class))
                         .to("sql:insert into JAMES_BOND (YEAR, ACTOR, MOVIE) VALUES (:#${header.Year}, :#${header.Actor}, :#${header.Movie})?dataSource=#db");
+
+                restConfiguration()
+                        .component("restlet")
+                        .host("localhost")
+                        .port(1234)
+                        .bindingMode(RestBindingMode.auto);
+
+                rest("/bond")
+                        .get("{Year}/title")
+                        .to("sql:select MOVIE from JAMES_BOND where YEAR = :#${header.Year}?dataSource=#db&outputType=SelectOne");
             }
         };
     }
