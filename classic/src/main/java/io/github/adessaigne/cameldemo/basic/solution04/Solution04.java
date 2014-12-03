@@ -26,7 +26,6 @@ import org.apache.camel.dataformat.csv.CsvDataFormat;
 
 import io.github.adessaigne.cameldemo.basic.common.AbstractExcercise;
 import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
 
 /**
  * Your mission: create a CSV file with all the james bond movies with their actor
@@ -52,8 +51,8 @@ final class Solution04 extends AbstractExcercise {
                             @Override
                             public void process(Exchange exchange) throws Exception {
                                 Map<String, String> data = new LinkedHashMap<>();
-                                data.put("Movie", ((NodeList) exchange.getIn().getHeader("Movie")).item(0).getTextContent());
-                                data.put("Actor", ((NodeList) exchange.getIn().getHeader("Actor")).item(0).getTextContent());
+                                data.put("Movie", exchange.getIn().getHeader("Movie", String.class));
+                                data.put("Actor", exchange.getIn().getHeader("Actor", String.class));
                                 exchange.getIn().setBody(data);
                             }
                         })
