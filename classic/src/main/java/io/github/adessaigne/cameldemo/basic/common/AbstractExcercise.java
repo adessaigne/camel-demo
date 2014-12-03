@@ -43,12 +43,12 @@ public abstract class AbstractExcercise implements Runnable {
      */
     @Override
     public final void run() {
+        log.info("Welcome to the " + getClass().getSimpleName() + ".");
+        log.info("You working directory is " + getWorkingDirectory());
+
         final Simulator simulator = new Simulator(getWorkingDirectory());
         final DefaultCamelContext context = new DefaultCamelContext();
         final ShutdownHandler shutdownHandler = new ExerciseShutdownHandler(log, simulator, context);
-
-        // Start the console
-        new Thread(new CommandLineReader(shutdownHandler, getWorkingDirectory()), "console").start();
 
         // Configure the Camel context
         try {
