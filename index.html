@@ -293,32 +293,145 @@
                     <h2>How can we manipulate the exchange ?</h2>
                     <ul>
                         <li class="fragment">Using producers</li>
-                        <li class="fragment">Using data formats</li>
-                        <li class="fragment">Using type conversion</li>
+                        <li class="fragment">Using data formats such as CSV</li>
+                        <li class="fragment">Using type conversion such as <code>byte[]</code> to
+                            <code>InputSteam</code></li>
                         <li class="fragment">Using registered beans</li>
                         <li class="fragment">Using custom processors</li>
                     </ul>
                 </section>
 
                 <section>
-                    <h2>Data formats</h2>
-                    <p>They ease reading and writing</p>
-                    <ul>
-                        <li>CSV</li>
-                        <li>XML</li>
-                        <li>PGP</li>
-                        <li>Barcode</li>
-                        <li class="fragment"><i>and many more...</i></li>
-                        <li class="fragment"><i>and yours ☺</i></li>
-                    </ul>
+                    <h2>How can we query the exchange ?</h2>
+                    <p>For data extraction or conditional execution</p>
+                    <p class="fragment">Using many languages</p>
+                    <table class="fragment" width="100%">
+                        <tr>
+                            <td>
+                                <small>Bean</small>
+                            </td>
+                            <td>
+                                <small>Constant</small>
+                            </td>
+                            <td>
+                                <small>EL from JSP and JSF</small>
+                            </td>
+                            <td>
+                                <small>Header</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <small>JSonPath</small>
+                            </td>
+                            <td>
+                                <small>JXPath</small>
+                            </td>
+                            <td>
+                                <small>Mvel</small>
+                            </td>
+                            <td>
+                                <small>OGNL</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <small>Property</small>
+                            </td>
+                            <td>
+                                <small>BeanShell</small>
+                            </td>
+                            <td>
+                                <small>JavaScript</small>
+                            </td>
+                            <td>
+                                <small>Groovy</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <small>Python</small>
+                            </td>
+                            <td>
+                                <small>PHP</small>
+                            </td>
+                            <td>
+                                <small>Ruby</small>
+                            </td>
+                            <td>
+                                <small>Simple</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <small>SQL</small>
+                            </td>
+                            <td>
+                                <small>XPath</small>
+                            </td>
+                        </tr>
+                    </table>
+                    <br />
+                    <p class="fragment">You can create your own language, but it's rather uncommon.</p>
                 </section>
-
             </section>
 
             <section>
-
+                <h2>Lets wrap this up</h2>
+                <p class="fragment">Everything we just saw is defined inside a Camel context</p>
+                <p class="fragment">This context uses a registry for finding useful beans</p>
+                <ul>
+                    <li class="fragment">Transformation beans</li>
+                    <li class="fragment">Database connections</li>
+                    <li class="fragment">Any other useful beans</li>
+                </ul>
             </section>
 
+            <section>
+                <p>I had enough of theory, lets see some code.</p>
+                <p class="fragment">Please.</p>
+            </section>
+
+            <section>
+                <section>
+                    <h1>Code</h1>
+                </section>
+
+                <section>
+                    <h2>Using java DSL</h2>
+                    <pre><code class="java">DefaultCamelContext context = new DefaultCamelContext();
+context.addRoutes(new RouteBuilder() {
+    @Override
+    public void configure() throws Exception {
+        from("file:inbox?move=.processed")
+                .unmarshal().csv()
+                .split().body()
+                .setHeader("CamelJmsMessageType").constant(JmsMessageType.Map)
+                .to("jms:queue:order?connectionFactory=activemq");
+    }
+});
+context.start();</code></pre>
+                </section>
+
+                <section>
+                    <h2>Using Spring DSL</h2>
+                    <pre><code class="xml">&lt;camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+    &lt;route>
+        &lt;from uri="file:inbox?move=.processed" />
+        &lt;unmarshal>
+            &lt;csv/>
+        &lt;/unmarshal>
+        &lt;split>
+            &lt;simple>${body}&lt;/simple>
+            &lt;setHeader headerName="CamelJmsMessageType">
+                &lt;groovy>org.apache.camel.component.jms.JmsMessageType.Map&lt;/groovy>
+            &lt;/setHeader>
+            &lt;to uri="jms:queue:order?connectionFactory=activemq"/>
+        &lt;/split>
+    &lt;/route>
+&lt;/camelContext></code></pre>
+                </section>
+            </section>
             <section>
                 <p>Thanks a lot for your patience</p>
             </section>
