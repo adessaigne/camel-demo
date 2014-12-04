@@ -7,8 +7,8 @@
 
     <meta name="description" content="Introduction to Apache Camel">
     <meta name="author" content="Antoine DESSAIGNE">
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <link rel="stylesheet" href="css/reveal.min.css">
@@ -24,40 +24,10 @@
             link.href = 'css/print/pdf.css';
             document.getElementsByTagName( 'head' )[0].appendChild( link );
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </script>
 
     <!--[if lt IE 9]>
-    <script src="lib/js/html5shiv.js"></script>
-    <![endif]-->
+    <script src="lib/js/html5shiv.js"></script><![endif]-->
 </head>
 
 <body>
@@ -66,16 +36,17 @@
             <section>
                 <h1>Apache Camel</h1>
                 <h2>The basics</h2>
+                <br />
                 <p>by Antoine DESSAIGNE</p>
             </section>
 
             <section>
                 <h2>What is Apache Camel ?</h2>
-                <p class="fragment">It's an open source library that</p>
+                <p>It's an open source library</p>
                 <ul>
-                    <li class="fragment">Consumes data</li>
-                    <li class="fragment">Tranforms data</li>
-                    <li class="fragment">Produces data</li>
+                    <li class="fragment">It consumes data from various sources</li>
+                    <li class="fragment">It routes data through many transformations</li>
+                    <li class="fragment">It produces data to any destination</li>
                 </ul>
             </section>
 
@@ -84,48 +55,182 @@
             </section>
 
             <section>
-                <h2>What can it consumes ?</h2>
-                <p>Lot's of things. <span class="fragment">Really, no kidding.</span></p>
-                <p class="fragment">
-                    Files, JMX events, JMS messages, SQL database rows, NoSQL databases values, SOAP web services, SOAP
-                    requests, REST web services, REST requests, FTP servers, mails, sockets, HTTP pages, Atom feeds, RSS
-                    feeds, web sockets, Docker, ElasticSearch, Spring events, OSGI events, system commands, Facebook,
-                    Google drive, IRC, Jira, LinkedIn, PaxLogging, Quartz events, RMI, Salesforce, SAP NetWeaver, LDAP,
-                    SSH, I/O Streams, Twitter, XMPP, ...
-                </p>
-            </section>
-
-            <section>
-                <h2>What can it consumes ?</h2>
-                <p>Nearly 150 consumers are officially supported</p>
-                <p/>
-                <p class="fragment">You can also write your own consumers :)</p>
+                <h2>Concepts</h2>
+                <br />
+                <p>A bit of theory</p>
             </section>
 
             <section>
                 <section>
-                    <h2>What about data transformation ?</h2>
-                    <p>It's whatever you want.</p>
+                    <h2>Consumers</h2>
+                    <p class="fragment">Read data</p>
+                    <p class="fragment">Depend on the source itself</p>
+                    <p class="fragment">Referenced by an URI</p>
+                    <p class="fragment"><code>file://inbox?move=.processed</code></p>
                 </section>
 
                 <section>
-                    <h3>Using data formats</h3>
-                    <p>CSV, fixed-width, TSV, XML, JSon, Zip, PGP, base64, protobuf, badly-formatted XML, ...</p>
-                    <p>Official list available <a href="http://camel.apache.org/data-format.html">here</a>.</p>
-                    <p/>
-                    <p class="fragment">You can also write your own particular formats</p>
+                    <h2>What are the consumers available ?</h2>
+                    <p class="fragment">A lot. <span class="fragment">Really, no kidding!</span></p>
+                    <table width="100%" class="fragment">
+                        <tr>
+                            <td>Files</td>
+                            <td>JMS messages</td>
+                            <td>SQL data</td>
+                        </tr>
+                        <tr>
+                            <td>NoSQL data</td>
+                            <td>SOAP services</td>
+                            <td>SOAP requests</td>
+                        </tr>
+                        <tr>
+                            <td>REST services</td>
+                            <td>REST requests</td>
+                            <td>FTP</td>
+                        </tr>
+                        <tr>
+                            <td>Mails</td>
+                            <td>Sockets</td>
+                            <td>JMX events</td>
+                        </tr>
+                        <tr>
+                            <td>HTTP pages</td>
+                            <td>HTTP requests</td>
+                            <td>Atom/RSS feeds</td>
+                        </tr>
+                        <tr>
+                            <td>Salesforce</td>
+                            <td>Facebook</td>
+                            <td>Twitter</td>
+                        </tr>
+                        <tr>
+                            <td class="fragment"><i>and many more...</i></td>
+                            <td class="fragment"><i>and yours ☺</i></td>
+                        </tr>
+                    </table>
+                    <br />
+                    <p class="fragment">Nearly 150 consumers are officially supported</p>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h2>Producers</h2>
+                    <p class="fragment">Chained after a consumer</p>
+                    <p class="fragment">Chained together</p>
+                    <p class="fragment">Creates data based on their input</p>
+                    <p class="fragment">Referenced by an URI</p>
+                    <p class="fragment"><code>string-template://mail</code></p>
                 </section>
 
                 <section>
-                    <h3>Applying operations</h3>
-                    <p>
-                        Content based routing, filtering, dynamic routing, recipient list, split, aggregation,
-                        resequencer, normalizer, content filter, sort
-                    </p>
-                    <p>
-                        Official list available <a href="http://camel.apache.org/enterprise-integration-patterns.html">here</a>.
+                    <h2>What are the producers available ?</h2>
+                    <p>Many more than consumers. <span class="fragment">True.</span></p>
+                    <table class="fragment" width="100%">
+                        <tr>
+                            <td>Local files</td>
+                            <td>Remote files</td>
+                            <td>JMS messages</td>
+                        </tr>
+                        <tr>
+                            <td>SQL data</td>
+                            <td>NoSQL data</td>
+                            <td>SOAP responses</td>
+                        </tr>
+                        <tr>
+                            <td>REST responses</td>
+                            <td>Mails</td>
+                            <td>HTTP responses</td>
+                        </tr>
+                        <tr>
+                            <td class="fragment"><i>and many more...</i></td>
+                            <td class="fragment"><i>and yours ☺</i></td>
+                        </tr>
+                    </table>
+                    <br />
+                    <p class="fragment">More than 150 producers are officially supported</p>
+                </section>
+
+                <section>
+                    <h2>Beans</h2>
+                    <
+                </section>
+
+                <section>
+                    <h2>How are the producers chained ?</h2>
+                    <p class="fragment">Using a routing system</p>
+                    <br />
+                    <table width="100%">
+                        <tr class="fragment">
+                            <td>Content based router</td>
+                            <td>Filter</td>
+                        </tr>
+                        <tr class="fragment">
+                            <td>Dynamic router</td>
+                            <td>Recipient list</td>
+                        </tr>
+                        <tr class="fragment">
+                            <td>Splitter</td>
+                            <td>Aggregator</td>
+                        </tr>
+                        <tr class="fragment">
+                            <td>Resequencer</td>
+                            <td>Composed message processor</td>
+                        </tr>
+                        <tr class="fragment">
+                            <td>Scatter-gather</td>
+                            <td>Routing slip</td>
+                        </tr>
+                        <tr class="fragment">
+                            <td>Throttler</td>
+                            <td>Sampling</td>
+                        </tr>
+                        <tr class="fragment">
+                            <td>Delayer</td>
+                            <td>Load balancer</td>
+                        </tr>
+                        <tr class="fragment">
+                            <td>Multicast</td>
+                            <td>Loop</td>
+                        </tr>
+                    </table>
+                    <br />
+                    <p class="fragment">See the <a href="http://camel.apache.org/enterprise-integration-patterns.html">Enterprise
+                                                                                                                       integration
+                                                                                                                       patterns</a>.
                     </p>
                 </section>
+            </section>
+
+            <section>
+                <h2>Data formats</h2>
+                <p>They ease reading and writing</p>
+                <ul>
+                    <li>CSV</li>
+                    <li>XML</li>
+                    <li>PGP</li>
+                    <li>Barcode</li>
+                    <li class="fragment"><i>and many more...</i></li>
+                    <li class="fragment"><i>and yours ☺</i></li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>What's inside a Camel Exchange ?</h2>
+                <ul>
+                    <li class="fragment">an input message
+                        <ul>
+                            <li class="fragment">with body (any <code>Object</code>)</li>
+                            <li class="fragment">with headers (a <code>Map&lt;String, ?></code>)</li>
+                        </ul>
+                    </li>
+                    <li class="fragment">an output message with body and headers</li>
+                    <li class="fragment">properties (a <code>Map&lt;String, ?></code>)</li>
+                </ul>
+            </section>
+
+            <section>
+
             </section>
 
             <section>
@@ -134,6 +239,7 @@
 
             <section>
                 <h2>Now it's time to code</h2>
+                <br />
                 <pre>$ git clone https://github.com/adessaigne/camel-demo.git</pre>
             </section>
         </div>
@@ -170,35 +276,6 @@
                 { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
             ]
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </script>
 
 </body>
