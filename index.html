@@ -41,17 +41,9 @@
             </section>
 
             <section>
-                <h2>What is Apache Camel ?</h2>
-                <p>It's an open source library</p>
-                <ul>
-                    <li class="fragment">It consumes data from various sources</li>
-                    <li class="fragment">It routes data through many transformations</li>
-                    <li class="fragment">It produces data to any destination</li>
-                </ul>
-            </section>
-
-            <section>
-                <h2>Really good for data integration</h2>
+                <h2>Really big picture</h2>
+                <p class="fragment">Consumes, transforms and transform data</p>
+                <p class="fragment">Really good for data integration</p>
             </section>
 
             <section>
@@ -66,50 +58,74 @@
                     <p class="fragment">Read data</p>
                     <p class="fragment">Depend on the source itself</p>
                     <p class="fragment">Referenced by an URI</p>
-                    <p class="fragment"><code>file://inbox?move=.processed</code></p>
+                    <p class="fragment"><code>file://inbox</code></p>
                 </section>
 
                 <section>
                     <h2>What are the consumers available ?</h2>
-                    <p class="fragment">A lot. <span class="fragment">Really, no kidding!</span></p>
+                    <p>A lot. <span class="fragment">Really, no kidding!</span></p>
+                    <br />
                     <table width="100%" class="fragment">
                         <tr>
-                            <td>Files</td>
-                            <td>JMS messages</td>
-                            <td>SQL data</td>
+                            <td>
+                                <small>Files</small>
+                            </td>
+                            <td>
+                                <small>JMS messages</small>
+                            </td>
+                            <td>
+                                <small>SQL data</small>
+                            </td>
+                            <td>
+                                <small>NoSQL data</small>
+                            </td>
                         </tr>
                         <tr>
-                            <td>NoSQL data</td>
-                            <td>SOAP services</td>
-                            <td>SOAP requests</td>
+                            <td>
+                                <small>SOAP services</small>
+                            </td>
+                            <td>
+                                <small>SOAP requests</small>
+                            </td>
+                            <td>
+                                <small>REST services</small>
+                            </td>
+                            <td>
+                                <small>REST requests</small>
+                            </td>
                         </tr>
                         <tr>
-                            <td>REST services</td>
-                            <td>REST requests</td>
-                            <td>FTP</td>
+                            <td>
+                                <small>FTP</small>
+                            </td>
+                            <td>
+                                <small>Mails</small>
+                            </td>
+                            <td>
+                                <small>Sockets</small>
+                            </td>
+                            <td>
+                                <small>JMX events</small>
+                            </td>
                         </tr>
                         <tr>
-                            <td>Mails</td>
-                            <td>Sockets</td>
-                            <td>JMX events</td>
-                        </tr>
-                        <tr>
-                            <td>HTTP pages</td>
-                            <td>HTTP requests</td>
-                            <td>Atom/RSS feeds</td>
-                        </tr>
-                        <tr>
-                            <td>Salesforce</td>
-                            <td>Facebook</td>
-                            <td>Twitter</td>
-                        </tr>
-                        <tr>
-                            <td class="fragment"><i>and many more...</i></td>
-                            <td class="fragment"><i>and yours ☺</i></td>
+                            <td>
+                                <small>HTTP pages</small>
+                            </td>
+                            <td>
+                                <small>HTTP requests</small>
+                            </td>
+                            <td>
+                                <small>Atom/RSS feeds</small>
+                            </td>
+                            <td>
+                                <small>Salesforce</small>
+                            </td>
                         </tr>
                     </table>
                     <br />
                     <p class="fragment">Nearly 150 consumers are officially supported</p>
+                    <p class="fragment">You can create your own consumers</p>
                 </section>
             </section>
 
@@ -128,70 +144,126 @@
                     <p>Many more than consumers. <span class="fragment">True.</span></p>
                     <table class="fragment" width="100%">
                         <tr>
-                            <td>Local files</td>
-                            <td>Remote files</td>
-                            <td>JMS messages</td>
+                            <td>
+                                <small>Local files</small>
+                            </td>
+                            <td>
+                                <small>Remote files</small>
+                            </td>
+                            <td>
+                                <small>JMS messages</small>
+                            </td>
+                            <td>
+                                <small>SQL data</small>
+                            </td>
                         </tr>
                         <tr>
-                            <td>SQL data</td>
-                            <td>NoSQL data</td>
-                            <td>SOAP responses</td>
+                            <td>
+                                <small>NoSQL data</small>
+                            </td>
+                            <td>
+                                <small>SOAP responses</small>
+                            </td>
+                            <td>
+                                <small>REST responses</small>
+                            </td>
+                            <td>
+                                <small>Mails</small>
+                            </td>
                         </tr>
                         <tr>
-                            <td>REST responses</td>
-                            <td>Mails</td>
-                            <td>HTTP responses</td>
+                            <td>
+                                <small>Twitter messages</small>
+                            </td>
+                            <td>
+                                <small>LDAP responses</small>
+                            </td>
+                            <td>
+                                <small>ElasticSearch responses</small>
+                            </td>
+                            <td>
+                                <small>Geocoding reponses</small>
+                            </td>
                         </tr>
                         <tr>
-                            <td class="fragment"><i>and many more...</i></td>
-                            <td class="fragment"><i>and yours ☺</i></td>
+                            <td>
+                                <small>System commands</small>
+                            </td>
+                            <td>
+                                <small>SSH commands</small>
+                            </td>
+                            <td>
+                                <small>IRC messages</small>
+                            </td>
+                            <td>
+                                <small>Nagios reponses</small>
+                            </td>
                         </tr>
                     </table>
                     <br />
                     <p class="fragment">More than 150 producers are officially supported</p>
-                </section>
-
-                <section>
-                    <h2>Beans</h2>
-                    <
+                    <p class="fragment">You can create your own consumers</p>
                 </section>
 
                 <section>
                     <h2>How are the producers chained ?</h2>
-                    <p class="fragment">Using a routing system</p>
+                    <p>Using a routing system</p>
                     <br />
-                    <table width="100%">
-                        <tr class="fragment">
-                            <td>Content based router</td>
-                            <td>Filter</td>
+                    <table width="100%" class="fragment">
+                        <tr>
+                            <td>
+                                <small>Content based router</small>
+                            </td>
+                            <td>
+                                <small>Filter</small>
+                            </td>
+                            <td>
+                                <small>Dynamic router</small>
+                            </td>
                         </tr>
-                        <tr class="fragment">
-                            <td>Dynamic router</td>
-                            <td>Recipient list</td>
+                        <tr>
+                            <td>
+                                <small>Recipient list</small>
+                            </td>
+                            <td>
+                                <small>Splitter</small>
+                            </td>
+                            <td>
+                                <small>Aggregator</small>
+                            </td>
                         </tr>
-                        <tr class="fragment">
-                            <td>Splitter</td>
-                            <td>Aggregator</td>
+                        <tr>
+                            <td>
+                                <small>Resequencer</small>
+                            </td>
+                            <td>
+                                <small>Composed message processor</small>
+                            </td>
+                            <td>
+                                <small>Scatter-gather</small>
+                            </td>
                         </tr>
-                        <tr class="fragment">
-                            <td>Resequencer</td>
-                            <td>Composed message processor</td>
+                        <tr>
+                            <td>
+                                <small>Routing slip</small>
+                            </td>
+                            <td>
+                                <small>Throttler</small>
+                            </td>
+                            <td>
+                                <small>Sampling</small>
+                            </td>
                         </tr>
-                        <tr class="fragment">
-                            <td>Scatter-gather</td>
-                            <td>Routing slip</td>
-                        </tr>
-                        <tr class="fragment">
-                            <td>Throttler</td>
-                            <td>Sampling</td>
-                        </tr>
-                        <tr class="fragment">
-                            <td>Delayer</td>
-                            <td>Load balancer</td>
-                        </tr>
-                        <tr class="fragment">
-                            <td>Multicast</td>
-                            <td>Loop</td>
+                        <tr>
+                            <td>
+                                <small>Delayer</small>
+                            </td>
+                            <td>
+                                <small>Load balancer</small>
+                            </td>
+                            <td>
+                                <small>Multicast</small>
+                            </td>
                         </tr>
                     </table>
                     <br />
@@ -203,30 +275,44 @@
             </section>
 
             <section>
-                <h2>Data formats</h2>
-                <p>They ease reading and writing</p>
-                <ul>
-                    <li>CSV</li>
-                    <li>XML</li>
-                    <li>PGP</li>
-                    <li>Barcode</li>
-                    <li class="fragment"><i>and many more...</i></li>
-                    <li class="fragment"><i>and yours ☺</i></li>
-                </ul>
-            </section>
+                <section>
+                    <h2>What's inside a Camel Exchange ?</h2>
+                    <ul>
+                        <li class="fragment">an input message
+                            <ul>
+                                <li class="fragment">with body (any <code>Object</code>)</li>
+                                <li class="fragment">with headers (a <code>Map&lt;String, ?></code>)</li>
+                            </ul>
+                        </li>
+                        <li class="fragment">an output message with body and headers</li>
+                        <li class="fragment">properties (a <code>Map&lt;String, ?></code>)</li>
+                    </ul>
+                </section>
 
-            <section>
-                <h2>What's inside a Camel Exchange ?</h2>
-                <ul>
-                    <li class="fragment">an input message
-                        <ul>
-                            <li class="fragment">with body (any <code>Object</code>)</li>
-                            <li class="fragment">with headers (a <code>Map&lt;String, ?></code>)</li>
-                        </ul>
-                    </li>
-                    <li class="fragment">an output message with body and headers</li>
-                    <li class="fragment">properties (a <code>Map&lt;String, ?></code>)</li>
-                </ul>
+                <section>
+                    <h2>How can we manipulate the exchange ?</h2>
+                    <ul>
+                        <li class="fragment">Using producers</li>
+                        <li class="fragment">Using data formats</li>
+                        <li class="fragment">Using type conversion</li>
+                        <li class="fragment">Using registered beans</li>
+                        <li class="fragment">Using custom processors</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Data formats</h2>
+                    <p>They ease reading and writing</p>
+                    <ul>
+                        <li>CSV</li>
+                        <li>XML</li>
+                        <li>PGP</li>
+                        <li>Barcode</li>
+                        <li class="fragment"><i>and many more...</i></li>
+                        <li class="fragment"><i>and yours ☺</i></li>
+                    </ul>
+                </section>
+
             </section>
 
             <section>
