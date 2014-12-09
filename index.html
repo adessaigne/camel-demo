@@ -41,360 +41,116 @@
             </section>
 
             <section>
-                <h2>Really big picture</h2>
-                <p class="fragment">Consumes, transforms and transform data</p>
-                <p class="fragment">Really good for data integration</p>
-            </section>
-
-            <section>
-                <h2>Concepts</h2>
-                <br />
-                <p>A bit of theory</p>
-            </section>
-
-            <section>
-                <section>
-                    <h2>Consumers</h2>
-                    <p class="fragment">Read data</p>
-                    <p class="fragment">Depend on the source itself</p>
-                    <p class="fragment">Referenced by an URI</p>
-                    <p class="fragment"><code>file://inbox</code></p>
-                </section>
-
-                <section>
-                    <h2>What are the consumers available ?</h2>
-                    <p>A lot. <span class="fragment">Really, no kidding!</span></p>
-                    <br />
-                    <table width="100%" class="fragment">
-                        <tr>
-                            <td>
-                                <small>Files</small>
-                            </td>
-                            <td>
-                                <small>JMS messages</small>
-                            </td>
-                            <td>
-                                <small>SQL data</small>
-                            </td>
-                            <td>
-                                <small>NoSQL data</small>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <small>SOAP services</small>
-                            </td>
-                            <td>
-                                <small>SOAP requests</small>
-                            </td>
-                            <td>
-                                <small>REST services</small>
-                            </td>
-                            <td>
-                                <small>REST requests</small>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <small>FTP</small>
-                            </td>
-                            <td>
-                                <small>Mails</small>
-                            </td>
-                            <td>
-                                <small>Sockets</small>
-                            </td>
-                            <td>
-                                <small>JMX events</small>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <small>HTTP pages</small>
-                            </td>
-                            <td>
-                                <small>HTTP requests</small>
-                            </td>
-                            <td>
-                                <small>Atom/RSS feeds</small>
-                            </td>
-                            <td>
-                                <small>Salesforce</small>
-                            </td>
-                        </tr>
-                    </table>
-                    <br />
-                    <p class="fragment">Nearly 150 consumers are officially supported</p>
-                    <p class="fragment">You can create your own consumers</p>
-                </section>
+                <h1>Today's schedule</h1>
+                <p class="fragment">Big picture</p>
+                <p class="fragment">Concepts</p>
+                <p class="fragment">The code</p>
+                <p class="fragment">Demo</p>
+                <p class="fragment">Learn by doing</p>
             </section>
 
             <section>
                 <section>
-                    <h2>Producers</h2>
-                    <p class="fragment">Chained after a consumer</p>
-                    <p class="fragment">Chained together</p>
-                    <p class="fragment">Creates data based on their input</p>
-                    <p class="fragment">Referenced by an URI</p>
-                    <p class="fragment"><code>string-template://mail</code></p>
+                    <h1>Big picture</h1>
                 </section>
 
                 <section>
-                    <h2>What are the producers available ?</h2>
-                    <p>Many more than consumers. <span class="fragment">True.</span></p>
-                    <table class="fragment" width="100%">
-                        <tr>
-                            <td>
-                                <small>Local files</small>
-                            </td>
-                            <td>
-                                <small>Remote files</small>
-                            </td>
-                            <td>
-                                <small>JMS messages</small>
-                            </td>
-                            <td>
-                                <small>SQL data</small>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <small>NoSQL data</small>
-                            </td>
-                            <td>
-                                <small>SOAP responses</small>
-                            </td>
-                            <td>
-                                <small>REST responses</small>
-                            </td>
-                            <td>
-                                <small>Mails</small>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <small>Twitter messages</small>
-                            </td>
-                            <td>
-                                <small>LDAP responses</small>
-                            </td>
-                            <td>
-                                <small>ElasticSearch responses</small>
-                            </td>
-                            <td>
-                                <small>Geocoding reponses</small>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <small>System commands</small>
-                            </td>
-                            <td>
-                                <small>SSH commands</small>
-                            </td>
-                            <td>
-                                <small>IRC messages</small>
-                            </td>
-                            <td>
-                                <small>Nagios reponses</small>
-                            </td>
-                        </tr>
-                    </table>
-                    <br />
-                    <p class="fragment">More than 150 producers are officially supported</p>
-                    <p class="fragment">You can create your own consumers</p>
+                    <h2>What's Apache Camel?</h2>
+                    <p>Data integration library</p>
+                    <p class="fragment">reads, transforms and writes data</p>
                 </section>
 
                 <section>
-                    <h2>How are the producers chained ?</h2>
-                    <p>Using a routing system</p>
-                    <br />
-                    <table width="100%" class="fragment">
-                        <tr>
-                            <td>
-                                <small>Content based router</small>
-                            </td>
-                            <td>
-                                <small>Filter</small>
-                            </td>
-                            <td>
-                                <small>Dynamic router</small>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <small>Recipient list</small>
-                            </td>
-                            <td>
-                                <small>Splitter</small>
-                            </td>
-                            <td>
-                                <small>Aggregator</small>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <small>Resequencer</small>
-                            </td>
-                            <td>
-                                <small>Composed message processor</small>
-                            </td>
-                            <td>
-                                <small>Scatter-gather</small>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <small>Routing slip</small>
-                            </td>
-                            <td>
-                                <small>Throttler</small>
-                            </td>
-                            <td>
-                                <small>Sampling</small>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <small>Delayer</small>
-                            </td>
-                            <td>
-                                <small>Load balancer</small>
-                            </td>
-                            <td>
-                                <small>Multicast</small>
-                            </td>
-                        </tr>
-                    </table>
-                    <br />
-                    <p class="fragment">See the <a href="http://camel.apache.org/enterprise-integration-patterns.html">Enterprise
-                                                                                                                       integration
-                                                                                                                       patterns</a>.
+                    <h2>Read what?</h2>
+                    <p>Whatever you want</p>
+                    <p class="fragment">~ 150 sources</p>
+                </section>
+
+                <section>
+                    <h2>Transform how?</h2>
+                    <p>Whatever you want</p>
+                    <p class="fragment">See <a href="http://camel.apache.org/enterprise-integration-patterns.html">
+                        Enterprise Integration Patterns</a>
                     </p>
                 </section>
+
+                <section>
+                    <h2>Write what?</h2>
+                    <p>Whatever you want</p>
+                    <p class="fragment">~150 destinations</p>
+                </section>
             </section>
 
             <section>
                 <section>
-                    <h2>What's inside a Camel Exchange ?</h2>
+                    <h1>Concepts</h1>
+                </section>
+
+                <section>
+                    <h2>Message based</h2>
+                    <p>It uses <code>Exchange</code> objects</p>
+                    <p class="fragment">An input, an output and meta-data (headers and properties).</p>
+                </section>
+
+                <section>
+                    <h2>URI based</h2>
+                    <p><code>bean://myBean?method=transform</code></p>
                     <ul>
-                        <li class="fragment">an input message
-                            <ul>
-                                <li class="fragment">with body (any <code>Object</code>)</li>
-                                <li class="fragment">with headers (a <code>Map&lt;String, ?></code>)</li>
-                            </ul>
-                        </li>
-                        <li class="fragment">an output message with body and headers</li>
-                        <li class="fragment">properties (a <code>Map&lt;String, ?></code>)</li>
+                        <li class="fragment"><code>bean</code> defines the component</li>
+                        <li class="fragment"><code>myBean</code> defines the endpoint</li>
+                        <li class="fragment"><code>method=transform</code> defines the options</li>
                     </ul>
                 </section>
 
                 <section>
-                    <h2>How can we manipulate the exchange ?</h2>
+                    <h2>Routing system</h2>
+                    <p>The message goes from a source through several transformations using a routing system.</p>
+                    <p class="fragment">Example: filter, aggregator, enricher, normalizer...</p>
+                </section>
+
+                <section>
+                    <h2>Chaining</h2>
                     <ul>
-                        <li class="fragment">Using producers</li>
-                        <li class="fragment">Using data formats such as CSV</li>
-                        <li class="fragment">Using type conversion such as <code>byte[]</code> to
-                            <code>InputSteam</code></li>
-                        <li class="fragment">Using registered beans</li>
-                        <li class="fragment">Using custom processors</li>
+                        <li>From a <code>Consumer</code> created by an <code>Endpoint</code></li>
+                        <li>To a <code>Producer</code> created by an <code>Endpoint</code></li>
+                        <li class="fragment">To other <code>Producer</code>s</li>
                     </ul>
                 </section>
 
                 <section>
-                    <h2>How can we query the exchange ?</h2>
-                    <p>For data extraction or conditional execution</p>
-                    <p class="fragment">Using many languages</p>
-                    <table class="fragment" width="100%">
-                        <tr>
-                            <td>
-                                <small>Bean</small>
-                            </td>
-                            <td>
-                                <small>Constant</small>
-                            </td>
-                            <td>
-                                <small>EL from JSP and JSF</small>
-                            </td>
-                            <td>
-                                <small>Header</small>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <small>JSonPath</small>
-                            </td>
-                            <td>
-                                <small>JXPath</small>
-                            </td>
-                            <td>
-                                <small>Mvel</small>
-                            </td>
-                            <td>
-                                <small>OGNL</small>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <small>Property</small>
-                            </td>
-                            <td>
-                                <small>BeanShell</small>
-                            </td>
-                            <td>
-                                <small>JavaScript</small>
-                            </td>
-                            <td>
-                                <small>Groovy</small>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <small>Python</small>
-                            </td>
-                            <td>
-                                <small>PHP</small>
-                            </td>
-                            <td>
-                                <small>Ruby</small>
-                            </td>
-                            <td>
-                                <small>Simple</small>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <small>SQL</small>
-                            </td>
-                            <td>
-                                <small>XPath</small>
-                            </td>
-                        </tr>
-                    </table>
-                    <br />
-                    <p class="fragment">You can create your own language, but it's rather uncommon.</p>
+                    <h2>Expressions</h2>
+                    <p>Extract information using several languages</p>
+                    <p class="fragment">~ 20 languages</p>
+                </section>
+
+                <section>
+                    <h2>Data formats</h2>
+                    <p>Encodes and decodes data using formats</p>
+                    <p class="fragment">~ 40 formats</p>
+                </section>
+
+                <section>
+                    <h2>Type conversion</h2>
+                    <p>Powerful built-in system for type conversion</p>
+                    <p class="fragment">Easily extensible</p>
+                </section>
+
+                <section>
+                    <h2>Registry</h2>
+                    <p>Built-in registry for finding objects</p>
+                    <p class="fragment">Can be backed by JNDI or OSGi</p>
+                </section>
+
+                <section>
+                    <h2>Extensible</h2>
+                    <p>Create custom components, languages, data formats...</p>
+                    <p class="fragment">Leverage from the Apache Camel infrastructure</p>
                 </section>
             </section>
 
             <section>
-                <h2>Lets wrap this up</h2>
-                <p class="fragment">Everything we just saw is defined inside a Camel context</p>
-                <p class="fragment">This context uses a registry for finding useful beans</p>
-                <ul>
-                    <li class="fragment">Transformation beans</li>
-                    <li class="fragment">Database connections</li>
-                    <li class="fragment">Any other useful beans</li>
-                </ul>
-            </section>
-
-            <section>
-                <p>I had enough of theory, lets see some code.</p>
-                <p class="fragment">Please.</p>
-            </section>
-
-            <section>
                 <section>
-                    <h1>Code</h1>
+                    <h1>The code</h1>
                 </section>
 
                 <section>
@@ -432,14 +188,17 @@ context.start();</code></pre>
 &lt;/camelContext></code></pre>
                 </section>
             </section>
+
             <section>
-                <p>Thanks a lot for your patience</p>
+                <h1>Demo</h1>
             </section>
 
             <section>
-                <h2>Now it's time to code</h2>
-                <br />
-                <pre>$ git clone https://github.com/adessaigne/camel-demo.git</pre>
+                <h1>Any questions?</h1>
+            </section>
+
+            <section>
+                <h1>Learn by doing</h1>
             </section>
         </div>
     </div>
