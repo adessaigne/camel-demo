@@ -27,8 +27,8 @@
     <name>Camel Demo</name>
 
     <properties>
-        <camel.version>2.14.0</camel.version>
-        <slf4j.version>1.7.7</slf4j.version>
+        <camel.version>2.14.1</camel.version>
+        <slf4j.version>1.7.10</slf4j.version>
         <guava.version>18.0</guava.version>
     </properties>
 
