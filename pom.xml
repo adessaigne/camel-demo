@@ -33,7 +33,7 @@
     </properties>
 
     <modules>
-        <module>classic</module>
+        <module>basic</module>
     </modules>
 
     <dependencies>
