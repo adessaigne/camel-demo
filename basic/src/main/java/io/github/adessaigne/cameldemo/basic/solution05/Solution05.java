@@ -21,13 +21,13 @@ import java.util.concurrent.ConcurrentMap;
 import org.apache.camel.Header;
 import org.apache.camel.builder.RouteBuilder;
 
-import io.github.adessaigne.cameldemo.basic.common.AbstractExcercise;
+import io.github.adessaigne.cameldemo.basic.common.AbstractExercise;
 import org.w3c.dom.Document;
 
 /**
  * Your mission: use a bean stored in the registry in order to transform data
  */
-final class Solution05 extends AbstractExcercise {
+final class Solution05 extends AbstractExercise {
     public static void main(String... args) {
         new Solution05().run();
     }

@@ -24,7 +24,7 @@ import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.dataformat.csv.CsvDataFormat;
 
-import io.github.adessaigne.cameldemo.basic.common.AbstractExcercise;
+import io.github.adessaigne.cameldemo.basic.common.AbstractExercise;
 import org.w3c.dom.Document;
 
 /**
@@ -32,7 +32,7 @@ import org.w3c.dom.Document;
  *
  * @link http://camel.apache.org/processor.html
  */
-final class Solution04 extends AbstractExcercise {
+final class Solution04 extends AbstractExercise {
     public static void main(String... args) {
         new Solution04().run();
     }

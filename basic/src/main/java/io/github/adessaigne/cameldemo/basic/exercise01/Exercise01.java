@@ -14,40 +14,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.adessaigne.cameldemo.basic.excercise06;
+package io.github.adessaigne.cameldemo.basic.exercise01;
 
-import java.util.concurrent.ConcurrentMap;
+import java.nio.file.Path;
 
 import org.apache.camel.builder.RouteBuilder;
 
-import io.github.adessaigne.cameldemo.basic.common.AbstractExcercise;
-import io.github.adessaigne.cameldemo.basic.common.WithDatabase;
+import io.github.adessaigne.cameldemo.basic.common.AbstractExercise;
 
 /**
- * Your mission: insert the data into a database.
+ * Your mission: log the name of the file that has been created into the working directory.
  * <p/>
- * The database {@link javax.sql.DataSource} can be accessed with the {@link #getDatabase()} method.
+ * Every 2 seconds, one new file is created into the working directory (that can be accessed using the
+ * {@link #getWorkingDirectory()} method).
  * <p/>
- * The content of the database is automatically displayed at the end of the excercise, there's an error if it's empty.
+ * All you need to do is to complete the Camel route definition in the {@link #configureCamelRoutes()} method.
  * <p/>
- * Here is the database schema:<pre>
- * CREATE TABLE JAMES_BOND (
- *   YEAR INT NOT NULL,
- *   ACTOR VARCHAR NOT NULL,
- *   MOVIE VARCHAR  NOT NULL,
- *   PRIMARY KEY (YEAR)
- * )
- * </pre>
+ * The Camel documentation mostly uses the following format:
+ * - A basic introduction,
+ * - The list of all options available for this component,
+ * - Sample code usages
+ *
+ * @link http://camel.apache.org/file2.html
+ * @link http://camel.apache.org/logeip.html
+ * @link http://camel.apache.org/simple.html
  */
-@WithDatabase
-final class Excercise06 extends AbstractExcercise {
+final class Exercise01 extends AbstractExercise {
     public static void main(String... args) {
-        new Excercise06().run();
-    }
-
-    @Override
-    protected void configureRegistry(ConcurrentMap<String, Object> registry) {
-        //TODO: configure your registry here
+        new Exercise01().run();
     }
 
     @Override
@@ -55,7 +49,11 @@ final class Excercise06 extends AbstractExcercise {
         return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                //TODO: write your route here
+                Path workingDirectory = getWorkingDirectory();
+
+                //TODO Replace "xxxx" by something useful
+                from("xxxx")
+                        .log("Processing xxxx.");
             }
         };
     }

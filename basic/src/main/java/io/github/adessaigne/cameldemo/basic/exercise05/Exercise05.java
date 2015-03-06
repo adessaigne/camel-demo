@@ -14,21 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.adessaigne.cameldemo.basic.excercise02;
+package io.github.adessaigne.cameldemo.basic.exercise05;
 
+import java.util.concurrent.ConcurrentMap;
+
+import org.apache.camel.Header;
 import org.apache.camel.builder.RouteBuilder;
 
-import io.github.adessaigne.cameldemo.basic.common.AbstractExcercise;
+import io.github.adessaigne.cameldemo.basic.common.AbstractExercise;
 
 /**
- * Your mission: read the file XML content and log the name of each James Bond actor.
- * <p/>
- * Like for the first exercise, the files are automatically copied into the working directory. You can see their content
- * in the {@code resources} folder under the {@code io.github.adessaigne.cameldemo.basic.common} package.
+ * Your mission: use a bean stored in the registry in order to transform data
  */
-final class Excercise02 extends AbstractExcercise {
+public class Exercise05 extends AbstractExercise {
     public static void main(String... args) {
-        new Excercise02().run();
+        new Exercise05().run();
+    }
+
+    @Override
+    protected void configureRegistry(ConcurrentMap<String, Object> registry) {
+        //TODO: replace with proper values
+        registry.put("xxxx", "xxxx");
     }
 
     @Override
@@ -36,9 +42,16 @@ final class Excercise02 extends AbstractExcercise {
         return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                //TODO: write your route here
-                // You can use a header in order to extract the actor name from the XML file
+                //TODO: configure your route here, remember you need to use the registry
             }
         };
+    }
+
+    @SuppressWarnings("unused")
+    public static final class SomeBean {
+        //TODO: replace with proper values
+        public final String transform(@Header("xxxx") String actor, @Header("xxxx") String movie) {
+            return actor + " played 007 in " + movie + ".";
+        }
     }
 }

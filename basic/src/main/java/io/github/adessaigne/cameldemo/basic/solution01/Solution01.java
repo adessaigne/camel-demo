@@ -18,7 +18,7 @@ package io.github.adessaigne.cameldemo.basic.solution01;
 
 import org.apache.camel.builder.RouteBuilder;
 
-import io.github.adessaigne.cameldemo.basic.common.AbstractExcercise;
+import io.github.adessaigne.cameldemo.basic.common.AbstractExercise;
 
 /**
  * Your mission: log the name of the file that has been created into the working directory.
@@ -37,7 +37,7 @@ import io.github.adessaigne.cameldemo.basic.common.AbstractExcercise;
  * @link http://camel.apache.org/logeip.html
  * @link http://camel.apache.org/simple.html
  */
-final class Solution01 extends AbstractExcercise {
+final class Solution01 extends AbstractExercise {
     public static void main(String... args) {
         new Solution01().run();
     }

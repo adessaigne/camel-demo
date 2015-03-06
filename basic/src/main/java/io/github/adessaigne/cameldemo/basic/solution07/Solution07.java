@@ -21,7 +21,7 @@ import java.util.concurrent.ConcurrentMap;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.rest.RestBindingMode;
 
-import io.github.adessaigne.cameldemo.basic.common.AbstractExcercise;
+import io.github.adessaigne.cameldemo.basic.common.AbstractExercise;
 import io.github.adessaigne.cameldemo.basic.common.WithDatabase;
 import io.github.adessaigne.cameldemo.basic.common.WithWebService;
 import org.w3c.dom.Document;
@@ -33,7 +33,7 @@ import org.w3c.dom.Document;
  */
 @WithDatabase
 @WithWebService(port = 1234)
-final class Solution07 extends AbstractExcercise {
+final class Solution07 extends AbstractExercise {
     public static void main(String... args) {
         new Solution07().run();
     }

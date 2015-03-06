@@ -18,7 +18,7 @@ package io.github.adessaigne.cameldemo.basic.solution03;
 
 import org.apache.camel.builder.RouteBuilder;
 
-import io.github.adessaigne.cameldemo.basic.common.AbstractExcercise;
+import io.github.adessaigne.cameldemo.basic.common.AbstractExercise;
 import org.w3c.dom.Document;
 
 /**
@@ -26,7 +26,7 @@ import org.w3c.dom.Document;
  *
  * @link http://camel.apache.org/enterprise-integration-patterns.html
  */
-final class Solution03 extends AbstractExcercise {
+final class Solution03 extends AbstractExercise {
     public static void main(String... args) {
         new Solution03().run();
     }

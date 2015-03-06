@@ -24,7 +24,7 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * This annotation indicates that the excercise uses a database
+ * This annotation indicates that the exercise uses a database
  */
 @Documented
 @Retention(RUNTIME)

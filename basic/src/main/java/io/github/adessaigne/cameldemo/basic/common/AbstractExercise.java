@@ -45,7 +45,7 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.slf4j.LoggerFactory.getLogger;
 
-public abstract class AbstractExcercise implements Runnable {
+public abstract class AbstractExercise implements Runnable {
     protected final Logger log = getLogger(getClass());
 
     private final Object workingDirectoryToken = new Object();
@@ -54,7 +54,7 @@ public abstract class AbstractExcercise implements Runnable {
     private volatile JdbcConnectionPool database;
 
     /**
-     * Starts the excercise
+     * Starts the exercise
      */
     @Override
     public final void run() {
@@ -68,7 +68,7 @@ public abstract class AbstractExcercise implements Runnable {
 
         configureCamel(context, registry);
 
-        Future<Void> simulation = startExcercise(context, simulator);
+        Future<Void> simulation = startExercise(context, simulator);
 
         waitForSimulationToComplete(simulation);
 
@@ -82,7 +82,7 @@ public abstract class AbstractExcercise implements Runnable {
             callWebService();
         }
 
-        log.info("Excercise complete, stopping the platform.");
+        log.info("Exercise complete, stopping the platform.");
         shutdownHandler.shutdown();
     }
 
@@ -124,7 +124,7 @@ public abstract class AbstractExcercise implements Runnable {
     }
 
     /**
-     * Gets the database. It returns {@code null} if the database is not configured on this excercise.
+     * Gets the database. It returns {@code null} if the database is not configured on this exercise.
      *
      * @return Database
      */
@@ -164,13 +164,13 @@ public abstract class AbstractExcercise implements Runnable {
     }
 
     /**
-     * Starts the excercise. It starts the context and the simulator.
+     * Starts the exercise. It starts the context and the simulator.
      *
      * @param context Context to start
      * @param simulator Simulator to start
      * @return A future of the simulation task
      */
-    private Future<Void> startExcercise(DefaultCamelContext context, Simulator simulator) {
+    private Future<Void> startExercise(DefaultCamelContext context, Simulator simulator) {
         try {
             context.start();
         } catch (Exception e) {
@@ -243,9 +243,9 @@ public abstract class AbstractExcercise implements Runnable {
     }
 
     /**
-     * Indicates whether or not the database is used for this excercise.
+     * Indicates whether or not the database is used for this exercise.
      *
-     * @return {@code true} if the database is used for this excercise
+     * @return {@code true} if the database is used for this exercise
      */
     private boolean isDatabaseUsed() {
         return getClass().getAnnotation(WithDatabase.class) != null;
@@ -262,7 +262,7 @@ public abstract class AbstractExcercise implements Runnable {
         JdbcConnectionPool db = JdbcConnectionPool.create("jdbc:h2:mem:test", "sa", "sa");
         try (Connection connection = db.getConnection()) {
             try (Statement statement = connection.createStatement()) {
-                statement.execute(Resources.toString(AbstractExcercise.class.getResource("database.sql"), UTF_8));
+                statement.execute(Resources.toString(AbstractExercise.class.getResource("database.sql"), UTF_8));
             }
         }
         return db;

@@ -14,20 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.adessaigne.cameldemo.basic.excercise03;
+package io.github.adessaigne.cameldemo.basic.exercise03;
 
 import org.apache.camel.builder.RouteBuilder;
 
-import io.github.adessaigne.cameldemo.basic.common.AbstractExcercise;
+import io.github.adessaigne.cameldemo.basic.common.AbstractExercise;
 
 /**
  * Your mission: print the title of each james bond movie along with its actor
  *
  * @link http://camel.apache.org/enterprise-integration-patterns.html
  */
-final class Excercise03 extends AbstractExcercise {
+final class Exercise03 extends AbstractExercise {
     public static void main(String... args) {
-        new Excercise03().run();
+        new Exercise03().run();
     }
 
     @Override

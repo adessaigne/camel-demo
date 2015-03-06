@@ -20,7 +20,7 @@ import java.util.concurrent.ConcurrentMap;
 
 import org.apache.camel.builder.RouteBuilder;
 
-import io.github.adessaigne.cameldemo.basic.common.AbstractExcercise;
+import io.github.adessaigne.cameldemo.basic.common.AbstractExercise;
 import io.github.adessaigne.cameldemo.basic.common.WithDatabase;
 import org.w3c.dom.Document;
 
@@ -29,7 +29,7 @@ import org.w3c.dom.Document;
  * <p/>
  * The database {@link javax.sql.DataSource} can be accessed with the {@link #getDatabase()} method.
  * <p/>
- * The content of the database is automatically displayed at the end of the excercise.
+ * The content of the database is automatically displayed at the end of the exercise.
  * <p/>
  * Here is the database schema:<pre>
  * CREATE TABLE JAMES_BOND (
@@ -41,7 +41,7 @@ import org.w3c.dom.Document;
  * </pre>
  */
 @WithDatabase
-final class Solution06 extends AbstractExcercise {
+final class Solution06 extends AbstractExercise {
     public static void main(String... args) {
         new Solution06().run();
     }

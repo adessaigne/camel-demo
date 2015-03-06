@@ -14,31 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.adessaigne.cameldemo.basic.excercise07;
-
-import java.util.concurrent.ConcurrentMap;
+package io.github.adessaigne.cameldemo.basic.exercise02;
 
 import org.apache.camel.builder.RouteBuilder;
 
-import io.github.adessaigne.cameldemo.basic.common.AbstractExcercise;
-import io.github.adessaigne.cameldemo.basic.common.WithDatabase;
-import io.github.adessaigne.cameldemo.basic.common.WithWebService;
+import io.github.adessaigne.cameldemo.basic.common.AbstractExercise;
 
 /**
- * Your mission: provide a REST web service for accessing James Bond movie titles
+ * Your mission: read the file XML content and log the name of each James Bond actor.
  * <p/>
- * The REST request will be "/bond/{year}/title" and is automatically executed at the end of the test.
+ * Like for the first exercise, the files are automatically copied into the working directory. You can see their content
+ * in the {@code resources} folder under the {@code io.github.adessaigne.cameldemo.basic.common} package.
  */
-@WithDatabase
-@WithWebService(port = 1234)
-final class Exercise07 extends AbstractExcercise {
+final class Exercise02 extends AbstractExercise {
     public static void main(String... args) {
-        new Exercise07().run();
-    }
-
-    @Override
-    protected void configureRegistry(ConcurrentMap<String, Object> registry) {
-        //TODO: maybe there's something to configure here
+        new Exercise02().run();
     }
 
     @Override
@@ -46,8 +36,8 @@ final class Exercise07 extends AbstractExcercise {
         return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                //TODO: write your route here.
-                // Yes, you can write a REST web service in Camel :)
+                //TODO: write your route here
+                // You can use a header in order to extract the actor name from the XML file
             }
         };
     }

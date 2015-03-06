@@ -14,20 +14,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.adessaigne.cameldemo.basic.excercise04;
+package io.github.adessaigne.cameldemo.basic.exercise06;
+
+import java.util.concurrent.ConcurrentMap;
 
 import org.apache.camel.builder.RouteBuilder;
 
-import io.github.adessaigne.cameldemo.basic.common.AbstractExcercise;
+import io.github.adessaigne.cameldemo.basic.common.AbstractExercise;
+import io.github.adessaigne.cameldemo.basic.common.WithDatabase;
 
 /**
- * Your mission: create a CSV file with all the james bond movies with their actor
- *
- * @link http://camel.apache.org/processor.html
+ * Your mission: insert the data into a database.
+ * <p/>
+ * The database {@link javax.sql.DataSource} can be accessed with the {@link #getDatabase()} method.
+ * <p/>
+ * The content of the database is automatically displayed at the end of the exercise, there's an error if it's empty.
+ * <p/>
+ * Here is the database schema:<pre>
+ * CREATE TABLE JAMES_BOND (
+ *   YEAR INT NOT NULL,
+ *   ACTOR VARCHAR NOT NULL,
+ *   MOVIE VARCHAR  NOT NULL,
+ *   PRIMARY KEY (YEAR)
+ * )
+ * </pre>
  */
-final class Excercise04 extends AbstractExcercise {
+@WithDatabase
+final class Exercise06 extends AbstractExercise {
     public static void main(String... args) {
-        new Excercise04().run();
+        new Exercise06().run();
+    }
+
+    @Override
+    protected void configureRegistry(ConcurrentMap<String, Object> registry) {
+        //TODO: configure your registry here
     }
 
     @Override
@@ -36,7 +56,6 @@ final class Excercise04 extends AbstractExcercise {
             @Override
             public void configure() throws Exception {
                 //TODO: write your route here
-                // Use a processor in order to convert the body into the expected format for CSV
             }
         };
     }

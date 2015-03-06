@@ -18,7 +18,7 @@ package io.github.adessaigne.cameldemo.basic.solution02;
 
 import org.apache.camel.builder.RouteBuilder;
 
-import io.github.adessaigne.cameldemo.basic.common.AbstractExcercise;
+import io.github.adessaigne.cameldemo.basic.common.AbstractExercise;
 import org.w3c.dom.Document;
 
 /**
@@ -27,7 +27,7 @@ import org.w3c.dom.Document;
  * Like for the first exercise, the files are automatically copied into the working directory. You can see their content
  * in the {@code resources} folder under the {@code io.github.adessaigne.cameldemo.basic.common} package.
  */
-final class Solution02 extends AbstractExcercise {
+final class Solution02 extends AbstractExercise {
     public static void main(String... args) {
         new Solution02().run();
     }

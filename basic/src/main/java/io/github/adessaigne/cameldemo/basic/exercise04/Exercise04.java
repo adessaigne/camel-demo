@@ -14,34 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.adessaigne.cameldemo.basic.excercise01;
-
-import java.nio.file.Path;
+package io.github.adessaigne.cameldemo.basic.exercise04;
 
 import org.apache.camel.builder.RouteBuilder;
 
-import io.github.adessaigne.cameldemo.basic.common.AbstractExcercise;
+import io.github.adessaigne.cameldemo.basic.common.AbstractExercise;
 
 /**
- * Your mission: log the name of the file that has been created into the working directory.
- * <p/>
- * Every 2 seconds, one new file is created into the working directory (that can be accessed using the
- * {@link #getWorkingDirectory()} method).
- * <p/>
- * All you need to do is to complete the Camel route definition in the {@link #configureCamelRoutes()} method.
- * <p/>
- * The Camel documentation mostly uses the following format:
- * - A basic introduction,
- * - The list of all options available for this component,
- * - Sample code usages
+ * Your mission: create a CSV file with all the james bond movies with their actor
  *
- * @link http://camel.apache.org/file2.html
- * @link http://camel.apache.org/logeip.html
- * @link http://camel.apache.org/simple.html
+ * @link http://camel.apache.org/processor.html
  */
-final class Excercise01 extends AbstractExcercise {
+final class Exercise04 extends AbstractExercise {
     public static void main(String... args) {
-        new Excercise01().run();
+        new Exercise04().run();
     }
 
     @Override
@@ -49,11 +35,8 @@ final class Excercise01 extends AbstractExcercise {
         return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                Path workingDirectory = getWorkingDirectory();
-
-                //TODO Replace "xxxx" by something useful
-                from("xxxx")
-                        .log("Processing xxxx.");
+                //TODO: write your route here
+                // Use a processor in order to convert the body into the expected format for CSV
             }
         };
     }

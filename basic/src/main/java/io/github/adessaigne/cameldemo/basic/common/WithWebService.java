@@ -25,7 +25,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  */
 
 /**
- * This annotation indicates that the excercise uses a web service
+ * This annotation indicates that the exercise uses a web service
  */
 @Documented
 @Retention(RUNTIME)
