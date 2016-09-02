@@ -16,24 +16,15 @@
  */
 package io.github.adessaigne.cameldemo.basic.common;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Path;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-
+import java.util.concurrent.*;
 import org.slf4j.Logger;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
-import static java.nio.file.Files.copy;
-import static java.nio.file.Files.createTempFile;
-import static java.nio.file.Files.move;
-import static java.nio.file.StandardCopyOption.ATOMIC_MOVE;
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
-import static java.util.concurrent.Executors.newSingleThreadExecutor;
+import static com.google.common.base.Preconditions.*;
+import static java.nio.file.Files.*;
+import static java.nio.file.StandardCopyOption.*;
+import static java.util.concurrent.Executors.*;
 import static org.slf4j.LoggerFactory.getLogger;
 
 final class Simulator {
@@ -48,7 +39,7 @@ final class Simulator {
      *
      * @param directory Directory for simulated files.
      */
-    public Simulator(Path directory) {
+    Simulator(Path directory) {
         checkNotNull(directory, "The directory must be defined.");
         checkPath(directory);
 
@@ -61,19 +52,11 @@ final class Simulator {
      * @param delay Delay between 2 file generation
      * @param unit Time unit of the delay between 2 file generation
      */
-    public Future<Void> generate(long delay, TimeUnit unit) {
+    Future<Void> generate(long delay, TimeUnit unit) {
         checkNotNull(unit, "The time unit must be defined");
 
         return executorService.submit(new SimulationTask(directory, delay, unit));
     }
-
-    /**
-     * Stops the simulator.
-     */
-    public void stop() {
-        executorService.shutdownNow();
-    }
-
     private static void checkPath(Path directory) {
         File file = directory.toFile();
         checkArgument(file.exists(), "The directory doesn't exist (%s).", directory);

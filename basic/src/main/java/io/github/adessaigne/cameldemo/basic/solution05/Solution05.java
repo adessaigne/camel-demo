@@ -16,13 +16,11 @@
  */
 package io.github.adessaigne.cameldemo.basic.solution05;
 
-import java.util.concurrent.ConcurrentMap;
-
+import java.util.concurrent.*;
 import org.apache.camel.Header;
 import org.apache.camel.builder.RouteBuilder;
-
-import io.github.adessaigne.cameldemo.basic.common.AbstractExercise;
 import org.w3c.dom.Document;
+import io.github.adessaigne.cameldemo.basic.common.AbstractExercise;
 
 /**
  * Your mission: use a bean stored in the registry in order to transform data
@@ -46,14 +44,14 @@ final class Solution05 extends AbstractExercise {
                         .convertBodyTo(Document.class)
                         .setHeader("Actor", xpath("/bond/actor/name/text()", String.class))
                         .split(xpath("/bond/movies/movie"))
-                        .setHeader("Movie", xpath("movie/title/text()", String.class))
-                        .beanRef("bean", "transform")
+                        .setHeader("Movie", xpath("movie/title/text()", String.class)).bean("bean", "transform")
                         .log("${body}");
             }
         };
     }
 
-    @SuppressWarnings("unused")
+    // Used by Camel using reflection
+    @SuppressWarnings({"unused", "WeakerAccess"})
     public static final class SomeBean {
         public final String transform(@Header("Actor") String actor, @Header("Movie") String movie) {
             return actor + " played 007 in " + movie;

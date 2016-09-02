@@ -16,11 +16,9 @@
  */
 package io.github.adessaigne.cameldemo.basic.exercise05;
 
-import java.util.concurrent.ConcurrentMap;
-
+import java.util.concurrent.*;
 import org.apache.camel.Header;
 import org.apache.camel.builder.RouteBuilder;
-
 import io.github.adessaigne.cameldemo.basic.common.AbstractExercise;
 
 /**
@@ -47,7 +45,8 @@ public class Exercise05 extends AbstractExercise {
         };
     }
 
-    @SuppressWarnings("unused")
+    // Used by Camel using reflection
+    @SuppressWarnings({"unused", "WeakerAccess"})
     public static final class SomeBean {
         //TODO: replace with proper values
         public final String transform(@Header("xxxx") String actor, @Header("xxxx") String movie) {

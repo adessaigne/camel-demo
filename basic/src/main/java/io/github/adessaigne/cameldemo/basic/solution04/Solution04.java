@@ -16,16 +16,11 @@
  */
 package io.github.adessaigne.cameldemo.basic.solution04;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
+import java.util.*;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.dataformat.csv.CsvDataFormat;
-
-import io.github.adessaigne.cameldemo.basic.common.AbstractExercise;
 import org.w3c.dom.Document;
+import io.github.adessaigne.cameldemo.basic.common.AbstractExercise;
 
 /**
  * Your mission: create a CSV file with all the james bond movies with their actor
@@ -46,15 +41,11 @@ final class Solution04 extends AbstractExercise {
                         .convertBodyTo(Document.class)
                         .setHeader("Actor", xpath("/bond/actor/name/text()", String.class))
                         .split(xpath("/bond/movies/movie"))
-                        .setHeader("Movie", xpath("movie/title/text()", String.class))
-                        .process(new Processor() {
-                            @Override
-                            public void process(Exchange exchange) throws Exception {
-                                Map<String, String> data = new LinkedHashMap<>();
-                                data.put("Movie", exchange.getIn().getHeader("Movie", String.class));
-                                data.put("Actor", exchange.getIn().getHeader("Actor", String.class));
-                                exchange.getIn().setBody(data);
-                            }
+                        .setHeader("Movie", xpath("movie/title/text()", String.class)).process(exchange -> {
+                    Map<String, String> data = new LinkedHashMap<>();
+                    data.put("Movie", exchange.getIn().getHeader("Movie", String.class));
+                    data.put("Actor", exchange.getIn().getHeader("Actor", String.class));
+                    exchange.getIn().setBody(data);
                         })
                         .marshal(new CsvDataFormat())
                         .to("file:?fileName=007.csv&fileExist=Append");

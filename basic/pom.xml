@@ -29,8 +29,7 @@
     <artifactId>basic</artifactId>
 
     <properties>
-        <derby.version>10.10.2.0</derby.version>
-        <h2.version>1.4.182</h2.version>
+        <h2.version>1.4.192</h2.version>
     </properties>
 
     <dependencies>

@@ -16,12 +16,9 @@
  */
 package io.github.adessaigne.cameldemo.basic.common;
 
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentMap;
-
+import java.util.*;
+import java.util.concurrent.*;
 import org.apache.camel.spi.Registry;
-
 import com.google.common.collect.ImmutableMap;
 
 import static com.google.common.collect.ImmutableSet.copyOf;
@@ -29,7 +26,7 @@ import static com.google.common.collect.ImmutableSet.copyOf;
 final class MapBasedRegistry implements Registry {
     private final ConcurrentMap<String, Object> map;
 
-    public MapBasedRegistry(ConcurrentMap<String, Object> map) {
+    MapBasedRegistry(ConcurrentMap<String, Object> map) {
         this.map = map;
     }
 

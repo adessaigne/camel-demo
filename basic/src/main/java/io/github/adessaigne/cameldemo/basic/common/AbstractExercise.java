@@ -16,42 +16,38 @@
  */
 package io.github.adessaigne.cameldemo.basic.common;
 
-import javax.sql.DataSource;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-
+import java.util.concurrent.*;
+import javax.sql.*;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
-
-import com.google.common.io.Resources;
-import com.sun.istack.Nullable;
 import org.h2.jdbcx.JdbcConnectionPool;
 import org.restlet.resource.ClientResource;
 import org.slf4j.Logger;
+import com.google.common.base.Supplier;
+import com.google.common.io.Resources;
+import com.sun.istack.Nullable;
 
+import static com.google.common.base.Preconditions.checkState;
+import static com.google.common.base.Suppliers.memoize;
 import static java.lang.String.format;
 import static java.lang.System.exit;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.Files.createTempDirectory;
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import static java.util.concurrent.TimeUnit.SECONDS;
+import static java.util.concurrent.TimeUnit.*;
 import static org.slf4j.LoggerFactory.getLogger;
 
+@SuppressWarnings("Guava")
 public abstract class AbstractExercise implements Runnable {
-    protected final Logger log = getLogger(getClass());
+    private final Logger log = getLogger(getClass());
 
-    private final Object workingDirectoryToken = new Object();
-    private volatile Path workingDirectory;
-    private final Object databaseToken = new Object();
-    private volatile JdbcConnectionPool database;
+    private final Supplier<Path> workingDirectory = memoize(this::createWorkingDirectory);
+    private final Supplier<JdbcConnectionPool> database = memoize(this::createDatabase);
 
     /**
      * Starts the exercise
@@ -64,7 +60,6 @@ public abstract class AbstractExercise implements Runnable {
         final Simulator simulator = new Simulator(getWorkingDirectory());
         final ConcurrentMap<String, Object> registry = new ConcurrentHashMap<>();
         final DefaultCamelContext context = new DefaultCamelContext(new MapBasedRegistry(registry));
-        final ShutdownHandler shutdownHandler = new ExerciseShutdownHandler(log, simulator, context);
 
         configureCamel(context, registry);
 
@@ -83,7 +78,7 @@ public abstract class AbstractExercise implements Runnable {
         }
 
         log.info("Exercise complete, stopping the platform.");
-        shutdownHandler.shutdown();
+        System.exit(0);
     }
 
     /**
@@ -109,18 +104,7 @@ public abstract class AbstractExercise implements Runnable {
      * @return The working directory
      */
     protected Path getWorkingDirectory() {
-        if (workingDirectory == null) {
-            synchronized (workingDirectoryToken) {
-                if (workingDirectory == null) {
-                    try {
-                        workingDirectory = createTempDirectory("exercise");
-                    } catch (IOException e) {
-                        handleFatalError("Cannot generate working directory.", e);
-                    }
-                }
-            }
-        }
-        return workingDirectory;
+        return workingDirectory.get();
     }
 
     /**
@@ -134,18 +118,7 @@ public abstract class AbstractExercise implements Runnable {
             return null;
         }
 
-        if (database == null) {
-            synchronized (databaseToken) {
-                if (database == null) {
-                    try {
-                        database = createDatabase();
-                    } catch (SQLException | IOException e) {
-                        handleFatalError("Cannot initialize the database", e);
-                    }
-                }
-            }
-        }
-        return database;
+        return database.get();
     }
 
     /**
@@ -211,6 +184,7 @@ public abstract class AbstractExercise implements Runnable {
      * Displays the database content.
      */
     private void displayDatabaseContent() {
+        checkState(getDatabase() != null, "There is no database to display");
         try (Connection connection = getDatabase().getConnection()) {
             try (Statement statement = connection.createStatement()) {
                 ResultSet resultSet = statement.executeQuery("SELECT YEAR, ACTOR, MOVIE FROM JAMES_BOND ORDER BY YEAR ASC");
@@ -242,6 +216,15 @@ public abstract class AbstractExercise implements Runnable {
         exit(-1);
     }
 
+    private Path createWorkingDirectory() {
+        try {
+            return createTempDirectory(getClass().getSimpleName());
+        } catch (IOException e) {
+            handleFatalError("Cannot create the temporary working directory", e);
+            throw new RuntimeException(e);
+        }
+    }
+
     /**
      * Indicates whether or not the database is used for this exercise.
      *
@@ -255,15 +238,13 @@ public abstract class AbstractExercise implements Runnable {
      * Creates and initializes the database.
      *
      * @return Database
-     * @throws SQLException
-     * @throws IOException
      */
-    private JdbcConnectionPool createDatabase() throws SQLException, IOException {
+    private JdbcConnectionPool createDatabase() {
         JdbcConnectionPool db = JdbcConnectionPool.create("jdbc:h2:mem:test", "sa", "sa");
-        try (Connection connection = db.getConnection()) {
-            try (Statement statement = connection.createStatement()) {
-                statement.execute(Resources.toString(AbstractExercise.class.getResource("database.sql"), UTF_8));
-            }
+        try (Connection connection = db.getConnection(); Statement statement = connection.createStatement()) {
+            statement.execute(Resources.toString(AbstractExercise.class.getResource("database.sql"), UTF_8));
+        } catch (SQLException | IOException e) {
+            handleFatalError("Cannot initialize the database", e);
         }
         return db;
     }
@@ -280,35 +261,6 @@ public abstract class AbstractExercise implements Runnable {
             log.info("Web service result: " + text);
         } catch (IOException e) {
             handleFatalError("Cannot call the web service", e);
-        }
-    }
-
-    private static final class ExerciseShutdownHandler implements ShutdownHandler {
-        private final Logger log;
-        private final Simulator simulator;
-        private final DefaultCamelContext context;
-
-        public ExerciseShutdownHandler(Logger log, Simulator simulator, DefaultCamelContext context) {
-            this.log = log;
-            this.simulator = simulator;
-            this.context = context;
-        }
-
-        @Override
-        public void shutdown() {
-            // Stopping simulator
-            simulator.stop();
-
-            // Stopping camel
-            context.getShutdownStrategy().setTimeout(1);
-            context.getShutdownStrategy().setTimeUnit(MILLISECONDS);
-            try {
-                context.stop();
-            } catch (Exception e) {
-                log.error("Cannot stop the context.", e);
-            }
-
-            exit(0);
         }
     }
 }
